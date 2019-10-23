@@ -38,3 +38,7 @@ footer {
     height: 70px;
     background-color: #007bff;
 }
+.wall {
+    width: 60%;
+    margin: auto;
+}
