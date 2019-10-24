@@ -1,5 +1,23 @@
 <?php
-include("config.php");
+// phpMyAdmin: https://remotemysql.com/phpmyadmin/sql.php
+include 'database.php';
+
+$dbhost = 'remotemysql.com';
+$dbuser = 'Q6EhZWemZR';
+$dbpass = 'iEkb5TgEqO';
+$dbname = 'Q6EhZWemZR';
+
+$db = new db($dbhost, $dbuser, $dbpass, $dbname);
+
+
+$id;
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+}
+// http://localhost:8888/PM19-pm1912/?page=profile&id=1
+
+?>
+<?php
 
 if(isset($_POST['but_upload'])){
  
@@ -17,8 +35,8 @@ if(isset($_POST['but_upload'])){
   if( in_array($imageFileType,$extensions_arr) ){
  
      // Insert record
-     $query = "insert into images(ImageFileName) values('".$name."')";
-     mysqli_query($con,$query);
+    $db->query("insert into images(ImageFileName) values('".$name."')");
+
   
      // Upload file
      move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);

@@ -17,12 +17,47 @@ if (isset($_GET["id"])) {
 // http://localhost:8888/PM19-pm1912/?page=profile&id=1
 
 $accounts = $db->query('SELECT * FROM accounts WHERE id=' . $id)->fetchAll();
-$account_content;
+
 foreach ($accounts as $account) {
     $account_content = $account;
 }
 ?>
 
+<?php
+
+if(isset($_POST['but_upload']))
+{
+ 
+  $name = $_FILES['file']['name'];
+  $target_dir = "img/upload/";
+  $target_file = $target_dir . basename($_FILES["file"]["name"]);
+
+  // Select file type
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+  // Valid file extensions
+  $extensions_arr = array("jpg","jpeg","png","gif");
+
+  // Check extension
+  if( in_array($imageFileType,$extensions_arr) ){
+ 
+     // Insert record
+    $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$account_content['id'].")");
+
+    $last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
+    foreach ($last_querys as $last_query) {
+        $last = $last_query;
+    }
+    $db->query("insert into posts(user_id, text, postImageID) values(".$account_content['id'].",'Image',".$last['ImageId'].")");
+    
+     // Upload file
+     move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+
+  }
+ 
+}
+
+?>
 <!-- Profile -->
 <div class="profile">
     <!-- Profile info -->
@@ -56,17 +91,16 @@ foreach ($accounts as $account) {
         <!-- Posts | New post -->
         <div class="card">
             <div class="card-body">
-                <form>
+                <form method="post" action="" enctype='multipart/form-data'>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">New post:</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                </form>
-                <form>
                     <div class="form-group">
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <input type="file" name='file' class="form-control-file" id="exampleFormControlFile1">
                     </div>
                     <button type="button" class="btn btn-outline-primary btn-sm">Post</button>
+                    <input class="btn btn-outline-primary btn-sm" type='submit' value='Post Image' name='but_upload'>
                 </form>
             </div>
         </div>
@@ -74,7 +108,7 @@ foreach ($accounts as $account) {
         <!-- Posts -->
         <?php
             $post_count = 0;
-            $posts = $db->query('SELECT * FROM posts WHERE user_id=' . $id)->fetchAll();
+            $posts = $db->query('SELECT * FROM posts WHERE user_id=' . $id . ' order by date desc')->fetchAll();
             foreach ($posts as $post) {
                 $post_content = $post;
                 $post_count++;
@@ -87,7 +121,18 @@ foreach ($accounts as $account) {
 
                 $comments = $db->query('SELECT * FROM comments WHERE comment_id=' . $post_content['id'])->fetchAll();
 
-                $post_section = "
+                if ($post_content['postImageID'] != NULL)
+                {
+                    $images = $db->query('SELECT * FROM images WHERE ImageId=' . $post_content['postImageID'])->fetchAll();
+                    foreach ($images as $image) {
+                        $image_name = $image;
+                    }
+                }
+                if(isset($_POST['like']))
+                {
+                    $db->query("update posts set likes =".$post_content['likes']++." where id = ".$post_content['id']);
+                }
+                $post_section_text = "
                 <div class='card'>
                     <!-- Posts | Text post (user header) -->
                     <div class='card-header'>
@@ -110,9 +155,38 @@ foreach ($accounts as $account) {
                     <!-- Posts | Text post (post) -->
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
-                        <button type='button' class='btn btn-primary btn-sm'>Like</button>
+                        <button type='button' class='btn btn-primary btn-sm name='like''>Like</button>
                         <small>" . $post_content['likes'] . " Likes</small>
                     </div>";
+                $post_section_pictrue = "
+                <div class='card'>
+                    <!-- Posts | Text post (user header) -->
+                    <div class='card-header'>
+                        <div class='row'>
+                            <div class='col-sm-1'>
+                                <img class='profile-pic-mini' src='img/dummy/profile-image.png'>
+                            </div>
+                            <div class='col-sm'>" .
+                                    $poster['first_name'] . " " . $poster['last_name']
+                                . "<p class='card-text'>
+                                    <small>" . $post['date'] . "</small>
+                                </p>
+                            </div>
+                            <!-- Posts | Text post (edit dutton) -->
+                            <div class='col-sm1'>
+                                <button type='button' class='btn btn-outline-primary btn-sm'>...</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Posts | Text post (post) -->
+                    <div class='card-body'>
+                        <p class='card-text'>" . $post_content['text'] . "</p>
+                        <img class='card-img-top' src='img/upload/" . $image_name['ImageFileName'] ."'>
+
+                        <button type='button' class='btn btn-primary btn-sm name='like''>Like</button>
+                        <small>" . $post_content['likes'] . " Likes</small>
+                    </div>";
+                    
 
                     $comment_count = 0;
                     foreach ($comments as $comment) {
@@ -136,6 +210,7 @@ foreach ($accounts as $account) {
                                         $comment_sender = $comment_poster;
                                     }
 
+                                    $post_content['likes'];
                                     array_push($comment_fields, "
                                     <!-- Posts | Text post (command) -->
                                     <div class='card-header'>
@@ -147,7 +222,6 @@ foreach ($accounts as $account) {
                                         </div>
                                         <div class='card-body'>
 
-                                            <!-- <img src='img/dummy/banner.jpg' class='card-img-top' alt='...'> -->
                                             <p class='card-text'>" . $comment_content['text'] . "</p>
                                             <button type='button' class='btn btn-primary btn-sm'>Like</button>
                                             <small>" . $comment_content['likes'] . " Likes</small>
@@ -164,7 +238,14 @@ foreach ($accounts as $account) {
 
                 if ($post_count > 0)
                 {
-                    echo $post_section;
+                    if ($post_content['postImageID'] != NULL)
+                    {   
+                        echo $post_section_pictrue;
+                    }
+                    else 
+                    {
+                        echo $post_section_text;
+                    }
                     echo $comment_section;
                     if ($comment_count > 0)
                     {
