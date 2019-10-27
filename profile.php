@@ -27,34 +27,41 @@ foreach ($accounts as $account) {
 
 if(isset($_POST['but_upload']))
 {
- 
-  $name = $_FILES['file']['name'];
-  $target_dir = "img/upload/";
-  $target_file = $target_dir . basename($_FILES["file"]["name"]);
+    $post_text = $_POST['post-input'];
 
-  // Select file type
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-  // Valid file extensions
-  $extensions_arr = array("jpg","jpeg","png","gif");
-
-  // Check extension
-  if( in_array($imageFileType,$extensions_arr) ){
- 
-     // Insert record
-    $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$account_content['id'].")");
-
-    $last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
-    foreach ($last_querys as $last_query) {
-        $last = $last_query;
+    $name = $_FILES['file']['name'];
+    if ($name == "")
+    {
+        $db->query("insert into posts(user_id, text) values(".$account_content['id'].',"'.$post_text.'")');
     }
-    $db->query("insert into posts(user_id, text, postImageID) values(".$account_content['id'].",'Image',".$last['ImageId'].")");
+    else {
+        $target_dir = "img/upload/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
     
-     // Upload file
-     move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
-
-  }
- 
+        // Select file type
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    
+        // Valid file extensions
+        $extensions_arr = array("jpg","jpeg","png","gif");
+    
+        // Check extension
+        if( in_array($imageFileType,$extensions_arr) ){
+        
+            // Insert record
+            $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$account_content['id'].")");
+    
+            $last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
+            foreach ($last_querys as $last_query) {
+                $last = $last_query;
+            }
+    
+            $db->query("insert into posts(user_id, text, postImageID) values(".$account_content['id'].',"'.$post_text.'",'.$last['ImageId'].")");
+            
+            // Upload file
+            move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+    
+        }
+    }
 }
 
 ?>
@@ -89,18 +96,18 @@ if(isset($_POST['but_upload']))
     <!-- Posts -->
     <div class="profile-wall">
         <!-- Posts | New post -->
+        <!-- TODO: if session is own profile -->
         <div class="card">
             <div class="card-body">
-                <form method="post" action="" enctype='multipart/form-data'>
+                <form method="post" action="" enctype='multipart/form-data' method="post">
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">New post:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea type="text" name="post-input" id="post-input" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="file" name='file' class="form-control-file" id="exampleFormControlFile1">
                     </div>
-                    <button type="button" class="btn btn-outline-primary btn-sm">Post</button>
-                    <input class="btn btn-outline-primary btn-sm" type='submit' value='Post Image' name='but_upload'>
+                    <input class="btn btn-outline-primary btn-sm" type='submit' value='Post' name='but_upload'>
                 </form>
             </div>
         </div>
@@ -155,7 +162,7 @@ if(isset($_POST['but_upload']))
                     <!-- Posts | Text post (post) -->
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
-                        <button type='button' class='btn btn-primary btn-sm name='like''>Like</button>
+                        <button type='button' class='btn btn-primary btn-sm name='like'>Like</button>
                         <small>" . $post_content['likes'] . " Likes</small>
                     </div>";
                 $post_section_pictrue = "
@@ -183,7 +190,7 @@ if(isset($_POST['but_upload']))
                         <p class='card-text'>" . $post_content['text'] . "</p>
                         <img class='card-img-top' src='img/upload/" . $image_name['ImageFileName'] ."'>
 
-                        <button type='button' class='btn btn-primary btn-sm name='like''>Like</button>
+                        <button type='button' class='btn btn-primary btn-sm name='like'>Like</button>
                         <small>" . $post_content['likes'] . " Likes</small>
                     </div>";
                     

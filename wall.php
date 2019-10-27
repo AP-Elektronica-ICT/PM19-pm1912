@@ -16,25 +16,70 @@ if (isset($_GET["id"])) {
 }
 // http://localhost:8888/PM19-pm1912/?page=profile&id=1
 
-?>
+$accounts = $db->query('SELECT * FROM accounts WHERE id=' . $id)->fetchAll();
 
+foreach ($accounts as $account) {
+    $account_content = $account;
+}
+
+?>
+<?php
+
+if(isset($_POST['but_upload']))
+{
+    $post_text = $_POST['post-input'];
+
+    $name = $_FILES['file']['name'];
+    if ($name == "")
+    {
+        $db->query("insert into posts(user_id, text) values(".$account_content['id'].',"'.$post_text.'")');
+    }
+    else {
+        $target_dir = "img/upload/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+    
+        // Select file type
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    
+        // Valid file extensions
+        $extensions_arr = array("jpg","jpeg","png","gif");
+    
+        // Check extension
+        if( in_array($imageFileType,$extensions_arr) ){
+        
+            // Insert record
+            $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$account_content['id'].")");
+    
+            $last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
+            foreach ($last_querys as $last_query) {
+                $last = $last_query;
+            }
+    
+            $db->query("insert into posts(user_id, text, postImageID) values(".$account_content['id'].',"'.$post_text.'",'.$last['ImageId'].")");
+            
+            // Upload file
+            move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+    
+        }
+    }
+}
+
+?>
 <!-- Wall -->
     <!-- Posts -->
     <div class="wall">
         <!-- Posts | New post -->
         <div class="card">
             <div class="card-body">
-                <form>
+                <form method="post" action="" enctype='multipart/form-data' method="post">
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">New post:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea type="text" name="post-input" id="post-input" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                </form>
-                <form>
                     <div class="form-group">
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <input type="file" name='file' class="form-control-file" id="exampleFormControlFile1">
                     </div>
-                    <button type="button" class="btn btn-outline-primary btn-sm">Post</button>
+                    <input class="btn btn-outline-primary btn-sm" type='submit' value='Post' name='but_upload'>
                 </form>
             </div>
         </div>
