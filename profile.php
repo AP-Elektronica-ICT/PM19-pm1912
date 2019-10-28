@@ -63,7 +63,20 @@ if(isset($_POST['but_upload']))
         }
     }
 }
+if(isset($_POST['like']))
+{
+    $posts_likes_query = $db->query('SELECT * FROM likes WHERE post_id="' . $_POST['post-id'] . '" AND user_id="' . $id . '"');
+    $posts_likes = $posts_likes_query->numRows();
 
+    if ($posts_likes == 0)
+    {
+        $db->query("INSERT INTO likes(user_id, post_id) values('".$id."','".$_POST['post-id']."')");
+    }
+    else {
+        $message = "You have already liked this post!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+}
 ?>
 <!-- Profile -->
 <div class="profile">
@@ -92,7 +105,7 @@ if(isset($_POST['but_upload']))
             </div>";
         echo $profile
     ?>
-
+                
     <!-- Posts -->
     <div class="profile-wall">
         <!-- Posts | New post -->
@@ -118,6 +131,10 @@ if(isset($_POST['but_upload']))
             $posts = $db->query('SELECT * FROM posts WHERE user_id=' . $id . ' order by date desc')->fetchAll();
             foreach ($posts as $post) {
                 $post_content = $post;
+
+                $posts_likes_query = $db->query('SELECT * FROM likes WHERE post_id="' . $post_content['id'] . '"');
+                $posts_likes = $posts_likes_query->numRows();
+
                 $post_count++;
 
                 $post_posters = $db->query('SELECT * FROM accounts WHERE id=' . $post_content['user_id'])->fetchAll();
@@ -134,10 +151,6 @@ if(isset($_POST['but_upload']))
                     foreach ($images as $image) {
                         $image_name = $image;
                     }
-                }
-                if(isset($_POST['like']))
-                {
-                    $db->query("update posts set likes =".$post_content['likes']++." where id = ".$post_content['id']);
                 }
                 $post_section_text = "
                 <div class='card'>
@@ -162,8 +175,11 @@ if(isset($_POST['but_upload']))
                     <!-- Posts | Text post (post) -->
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
-                        <button type='button' class='btn btn-primary btn-sm name='like'>Like</button>
-                        <small>" . $post_content['likes'] . " Likes</small>
+                        <form method='post' action='' enctype='multipart/form-data' method='post'>
+                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                            <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
+                            <small>" . $posts_likes . " Likes</small>
+                        </form>
                     </div>";
                 $post_section_pictrue = "
                 <div class='card'>
@@ -190,8 +206,11 @@ if(isset($_POST['but_upload']))
                         <p class='card-text'>" . $post_content['text'] . "</p>
                         <img class='card-img-top' src='img/upload/" . $image_name['ImageFileName'] ."'>
 
-                        <button type='button' class='btn btn-primary btn-sm name='like'>Like</button>
-                        <small>" . $post_content['likes'] . " Likes</small>
+                        <form method='post' action='' enctype='multipart/form-data' method='post'>
+                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                            <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
+                            <small>" . $posts_likes . " Likes</small>
+                        </form>
                     </div>";
                     
 
@@ -239,7 +258,6 @@ if(isset($_POST['but_upload']))
                                 <label for='exampleFormControlTextarea1'>New comment:</label>
                                 <textarea class='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
                             </div>
-                            <button type='button' class='btn btn-outline-primary btn-sm'>Comment</button>
                         </div>";
                     
 
