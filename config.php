@@ -1,8 +1,11 @@
 <?php
 
-$db_user = "root";
-$db_pass = '';
-$db_name = "useraccounts";
+$dbhost = 'remotemysql.com';
+$dbuser = 'Q6EhZWemZR';
+$dbpass = 'iEkb5TgEqO';
+$dbname = 'Q6EhZWemZR';
 
-$db = new PDO('mysql:host=localhost;dbname='. $db_name . ';charset=utf8', $db_user, $db_pass);
+
+$db = new PDO('mysql:host='. $dbhost.';dbname='. $dbname . ';charset=utf8', $dbuser, $dbpass);
+
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
