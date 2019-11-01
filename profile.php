@@ -82,6 +82,16 @@ if(isset($_POST['like']))
         echo "<script type='text/javascript'>alert('$message');</script>";
     }
 }
+if(isset($_POST['delete']))
+{
+    if ($_POST['postImageID'] != NULL)
+    {   
+        $posts_likes_query = $db->query('DELETE FROM images WHERE ImageId=' . $_POST['postImageID']);
+    }
+    $posts_likes_query = $db->query('DELETE FROM likes WHERE post_id=' . $_POST['post-id']);
+    $posts_likes_query = $db->query('DELETE FROM comments WHERE post_id=' . $_POST['post-id']);
+    $posts_likes_query = $db->query('DELETE FROM posts WHERE id=' . $_POST['post-id']);
+}
 if(isset($_POST['but_react']))
 {
     $comment_text = $_POST['react-input'];
@@ -171,6 +181,20 @@ if(isset($_POST['but_react']))
                         $image_name = $image;
                     }
                 }
+                // Check if the post belongs to the loggid in user
+                if ($post_content['user_id'] == $id)
+                {
+                    $delete_button = "
+                    <div class='btn-group mr-2' role='group' aria-label='First group'>
+                        <form method='post' action='' enctype='multipart/form-data' method='post'>
+                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                            <input class='btn btn-outline-danger btn-sm' type='submit' value='Delete' name='delete'>
+                        </form>
+                    </div>";
+                } 
+                else {
+                    $delete_button = "";
+                }
                 $post_section_text = "
                 <div class='card'>
                     <!-- Posts | Text post (user header) -->
@@ -191,7 +215,7 @@ if(isset($_POST['but_react']))
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
                         <div class='btn-toolbar' role='toolbar' aria-label='Toolbar with button groups'>
-                            
+                            ". $delete_button ."
                             <div class='btn-group mr-2' role='group' aria-label='Second group'>
                                 <form method='post' action='' enctype='multipart/form-data' method='post'>
                                     <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
@@ -225,7 +249,7 @@ if(isset($_POST['but_react']))
                         <img class='card-img-top' src='img/upload/" . $image_name['ImageFileName'] ."'>
                         
                         <div class='btn-toolbar' role='toolbar' aria-label='Toolbar with button groups'>
-                            
+                            ". $delete_button ."
                             <div class='btn-group mr-2' role='group' aria-label='Second group'>
                                 <form method='post' action='' enctype='multipart/form-data' method='post'>
                                     <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
