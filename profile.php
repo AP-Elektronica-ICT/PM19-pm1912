@@ -27,36 +27,56 @@ foreach ($accounts as $account) {
 
 if(isset($_POST['but_upload']))
 {
- 
-  $name = $_FILES['file']['name'];
-  $target_dir = "img/upload/";
-  $target_file = $target_dir . basename($_FILES["file"]["name"]);
+    $post_text = $_POST['post-input'];
 
-  // Select file type
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-  // Valid file extensions
-  $extensions_arr = array("jpg","jpeg","png","gif");
-
-  // Check extension
-  if( in_array($imageFileType,$extensions_arr) ){
- 
-     // Insert record
-    $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$account_content['id'].")");
-
-    $last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
-    foreach ($last_querys as $last_query) {
-        $last = $last_query;
+    $name = $_FILES['file']['name'];
+    if ($name == "")
+    {
+        $db->query("insert into posts(user_id, text) values(".$account_content['id'].',"'.$post_text.'")');
     }
-    $db->query("insert into posts(user_id, text, postImageID) values(".$account_content['id'].",'Image',".$last['ImageId'].")");
+    else {
+        $target_dir = "img/upload/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
     
-     // Upload file
-     move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
-
-  }
- 
+        // Select file type
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    
+        // Valid file extensions
+        $extensions_arr = array("jpg","jpeg","png","gif");
+    
+        // Check extension
+        if( in_array($imageFileType,$extensions_arr) ){
+        
+            // Insert record
+            $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$account_content['id'].")");
+    
+            $last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
+            foreach ($last_querys as $last_query) {
+                $last = $last_query;
+            }
+    
+            $db->query("insert into posts(user_id, text, postImageID) values(".$account_content['id'].',"'.$post_text.'",'.$last['ImageId'].")");
+            
+            // Upload file
+            move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+    
+        }
+    }
 }
+if(isset($_POST['like']))
+{
+    $posts_likes_query = $db->query('SELECT * FROM likes WHERE post_id="' . $_POST['post-id'] . '" AND user_id="' . $id . '"');
+    $posts_likes = $posts_likes_query->numRows();
 
+    if ($posts_likes == 0)
+    {
+        $db->query("INSERT INTO likes(user_id, post_id) values('".$id."','".$_POST['post-id']."')");
+    }
+    else {
+        $message = "You have already liked this post!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+}
 ?>
 <!-- Profile -->
 <div class="profile">
@@ -85,22 +105,22 @@ if(isset($_POST['but_upload']))
             </div>";
         echo $profile
     ?>
-
+                
     <!-- Posts -->
     <div class="profile-wall">
         <!-- Posts | New post -->
+        <!-- TODO: if session is own profile -->
         <div class="card">
             <div class="card-body">
-                <form method="post" action="" enctype='multipart/form-data'>
+                <form method="post" action="" enctype='multipart/form-data' method="post">
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">New post:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea type="text" name="post-input" id="post-input" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="file" name='file' class="form-control-file" id="exampleFormControlFile1">
                     </div>
-                    <button type="button" class="btn btn-outline-primary btn-sm">Post</button>
-                    <input class="btn btn-outline-primary btn-sm" type='submit' value='Post Image' name='but_upload'>
+                    <input class="btn btn-outline-primary btn-sm" type='submit' value='Post' name='but_upload'>
                 </form>
             </div>
         </div>
@@ -111,6 +131,10 @@ if(isset($_POST['but_upload']))
             $posts = $db->query('SELECT * FROM posts WHERE user_id=' . $id . ' order by date desc')->fetchAll();
             foreach ($posts as $post) {
                 $post_content = $post;
+
+                $posts_likes_query = $db->query('SELECT * FROM likes WHERE post_id="' . $post_content['id'] . '"');
+                $posts_likes = $posts_likes_query->numRows();
+
                 $post_count++;
 
                 $post_posters = $db->query('SELECT * FROM accounts WHERE id=' . $post_content['user_id'])->fetchAll();
@@ -127,10 +151,6 @@ if(isset($_POST['but_upload']))
                     foreach ($images as $image) {
                         $image_name = $image;
                     }
-                }
-                if(isset($_POST['like']))
-                {
-                    $db->query("update posts set likes =".$post_content['likes']++." where id = ".$post_content['id']);
                 }
                 $post_section_text = "
                 <div class='card'>
@@ -155,8 +175,11 @@ if(isset($_POST['but_upload']))
                     <!-- Posts | Text post (post) -->
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
-                        <button type='button' class='btn btn-primary btn-sm name='like''>Like</button>
-                        <small>" . $post_content['likes'] . " Likes</small>
+                        <form method='post' action='' enctype='multipart/form-data' method='post'>
+                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                            <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
+                            <small>" . $posts_likes . " Likes</small>
+                        </form>
                     </div>";
                 $post_section_pictrue = "
                 <div class='card'>
@@ -183,8 +206,11 @@ if(isset($_POST['but_upload']))
                         <p class='card-text'>" . $post_content['text'] . "</p>
                         <img class='card-img-top' src='img/upload/" . $image_name['ImageFileName'] ."'>
 
-                        <button type='button' class='btn btn-primary btn-sm name='like''>Like</button>
-                        <small>" . $post_content['likes'] . " Likes</small>
+                        <form method='post' action='' enctype='multipart/form-data' method='post'>
+                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                            <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
+                            <small>" . $posts_likes . " Likes</small>
+                        </form>
                     </div>";
                     
 
@@ -232,7 +258,6 @@ if(isset($_POST['but_upload']))
                                 <label for='exampleFormControlTextarea1'>New comment:</label>
                                 <textarea class='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
                             </div>
-                            <button type='button' class='btn btn-outline-primary btn-sm'>Comment</button>
                         </div>";
                     
 
