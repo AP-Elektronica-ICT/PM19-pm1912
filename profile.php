@@ -30,11 +30,12 @@ if(isset($_POST['but_upload']))
     $post_text = $_POST['post-input'];
 
     $name = $_FILES['file']['name'];
-    if ($name == "")
+    if ($name == "" && $post_text != "")
     {
         $db->query("insert into posts(user_id, text) values(".$account_content['id'].',"'.$post_text.'")');
     }
-    else {
+    else if ($name != "")
+    {
         $target_dir = "img/upload/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
     
@@ -62,6 +63,10 @@ if(isset($_POST['but_upload']))
     
         }
     }
+    else {
+        $message = "No input!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 }
 if(isset($_POST['like']))
 {
@@ -77,6 +82,20 @@ if(isset($_POST['like']))
         echo "<script type='text/javascript'>alert('$message');</script>";
     }
 }
+if(isset($_POST['but_react']))
+{
+    $comment_text = $_POST['react-input'];
+
+    if ($comment_text != "")
+    {
+        $db->query("INSERT INTO comments(user_id, post_id, text) values('".$id."','".$_POST['post-id']."','".$comment_text."')");
+    }
+    else {
+        $message = "No input!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+}
+
 ?>
 <!-- Profile -->
 <div class="profile">
@@ -143,7 +162,7 @@ if(isset($_POST['like']))
                     
                 }
 
-                $comments = $db->query('SELECT * FROM comments WHERE comment_id=' . $post_content['id'])->fetchAll();
+                $comments = $db->query('SELECT * FROM comments WHERE post_id=' . $post_content['id'])->fetchAll();
 
                 if ($post_content['postImageID'] != NULL)
                 {
@@ -166,20 +185,23 @@ if(isset($_POST['like']))
                                     <small>" . $post['date'] . "</small>
                                 </p>
                             </div>
-                            <!-- Posts | Text post (edit dutton) -->
-                            <div class='col-sm1'>
-                                <button type='button' class='btn btn-outline-primary btn-sm'>...</button>
-                            </div>
                         </div>
                     </div>
                     <!-- Posts | Text post (post) -->
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
-                        <form method='post' action='' enctype='multipart/form-data' method='post'>
-                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
-                            <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
-                            <small>" . $posts_likes . " Likes</small>
-                        </form>
+                        <div class='btn-toolbar' role='toolbar' aria-label='Toolbar with button groups'>
+                            
+                            <div class='btn-group mr-2' role='group' aria-label='Second group'>
+                                <form method='post' action='' enctype='multipart/form-data' method='post'>
+                                    <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                                    <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
+                                    <small>" . $posts_likes . " Likes</small>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        
                     </div>";
                 $post_section_pictrue = "
                 <div class='card'>
@@ -195,22 +217,23 @@ if(isset($_POST['like']))
                                     <small>" . $post['date'] . "</small>
                                 </p>
                             </div>
-                            <!-- Posts | Text post (edit dutton) -->
-                            <div class='col-sm1'>
-                                <button type='button' class='btn btn-outline-primary btn-sm'>...</button>
-                            </div>
                         </div>
                     </div>
                     <!-- Posts | Text post (post) -->
                     <div class='card-body'>
                         <p class='card-text'>" . $post_content['text'] . "</p>
                         <img class='card-img-top' src='img/upload/" . $image_name['ImageFileName'] ."'>
-
-                        <form method='post' action='' enctype='multipart/form-data' method='post'>
-                            <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
-                            <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
-                            <small>" . $posts_likes . " Likes</small>
-                        </form>
+                        
+                        <div class='btn-toolbar' role='toolbar' aria-label='Toolbar with button groups'>
+                            
+                            <div class='btn-group mr-2' role='group' aria-label='Second group'>
+                                <form method='post' action='' enctype='multipart/form-data' method='post'>
+                                    <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+                                    <input class='btn btn-outline-primary btn-sm' type='submit' value='Like' name='like'>
+                                    <small>" . $posts_likes . " Likes</small>
+                                </form>
+                            </div>
+                        </div>
                     </div>";
                     
 
@@ -249,14 +272,18 @@ if(isset($_POST['like']))
                                         <div class='card-body'>
 
                                             <p class='card-text'>" . $comment_content['text'] . "</p>
-                                            <button type='button' class='btn btn-primary btn-sm'>Like</button>
-                                            <small>" . $comment_content['likes'] . " Likes</small>
                                         </div>
                                     </div>");
                                 }
                                 $comment_new = "<!-- Posts | Text post (new command) -->
                                 <label for='exampleFormControlTextarea1'>New comment:</label>
-                                <textarea class='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
+
+                                <form method='post' action='' enctype='multipart/form-data' method='post'>
+                                    <input hidden='true' type='text' name='post-id' id='post-id' class='form-control' value='". $post_content['id'] ."'>
+
+                                    <input  type='text' name='react-input' id='react-input' class='form-control' value=''>
+                                    <input class='btn btn-outline-primary btn-sm' type='submit' value='Comment' name='but_react'>
+                                </form>
                             </div>
                         </div>";
                     
