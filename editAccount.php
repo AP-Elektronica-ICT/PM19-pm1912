@@ -1,11 +1,40 @@
 <?php
 require_once('config.php');
 ?>
-<div>
+<?php
+if(isset($POST)) {
+	$updated = array();
+	$toupdate = array("firstname","lastname","username","email","number","city","address","zip","tel","password");
+	$firstname 		= $_POST['firstname'];
+	$lastname 		= $_POST['lastname'];
+    $username       = $_POST['username'];
+	$email 			= $_POST['email'];
+    $number         = $_POST['number'];
+    $city           = $_POST['city'];
+    $address        = $_POST['address'];
+    $zip            = $_POST['zip'];
+	$tel         	= $_POST['tel'];
+	$password 		= $_POST['password'];
+	array_push($firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
+	$var_count(count($toupdate));
+	$sql = "INSERT INTO accounts SET ";
+	$temp = false;
+	for ($i = 0; $i<$var_count, $i++) {
+		if ($temp == true) 
+			{$sql .= ", "}
+		if ($updated[$i]!="" && $updated[$i]!=null ){
+			$sql .= "{$toupdate[$i]}={$updated[$i]} ";
+			}
+		}
+	$sql .= "WHERE {$id}={$sessionid}";
+	}
+	$db->query($sql);
+
 session_start();
 $sessionid=$_SESSION['sessionid'];
 if (isset ($_SESSION[sessionid])) {
-$deletemessage="<div>
+$deletemessage="
+<div>
 	<form action="registration.php" method="post">
 		<div class="container">
 			
@@ -49,33 +78,7 @@ $deletemessage="<div>
 			</div>
 		</div>
 	</form>
-	if(isset($POST)) {
-	$updated = array();
-	$toupdate = array("firstname","lastname","username","email","number","city","address","zip","tel","password");
-	$firstname 		= $_POST['firstname'];
-	$lastname 		= $_POST['lastname'];
-    $username       = $_POST['username'];
-	$email 			= $_POST['email'];
-    $number         = $_POST['number'];
-    $city           = $_POST['city'];
-    $address        = $_POST['address'];
-    $zip            = $_POST['zip'];
-	$tel         	= $_POST['tel'];
-	$password 		= $_POST['password'];
-	array_push($firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
-	$var_count(count($toupdate));
-	$sql = "INSERT INTO accounts SET ";
-	$temp = false;
-	for ($i = 0; $i<$var_count, $i++) {
-		if ($temp == true) 
-			{$sql .= ", "}
-		if ($updated[$i]!="" && $updated!=null ){
-			$sql .= "{toupdate[$i]}={updated[$i]} ";
-			}
-		}
-	$sql .= "WHERE $id=$sessionid";
-	}
-</div>
+</div>";
 }
 else {
 	$deletemessage="<div>You must create an account or log in in order to edit your account.</div>";
