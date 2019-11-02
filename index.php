@@ -23,10 +23,27 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=wall">Wall</a>
+                        <?php
+                            // parse the url
+                            $pathInfo = parse_url($_SERVER['REQUEST_URI']);
+                            $queryString = $pathInfo['query'];
+                            // convert the query parameters to an array
+                            parse_str($queryString, $queryArray);
+                            // add the new query parameter into the array
+
+                            $queryArray['page'] = "wall";
+                            // build the new query string
+                            $newQueryStr = http_build_query($queryArray);
+                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.$newQueryStr."'>Wall</a>";
+                        ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=profile">Profile</a>
+                        <?php
+                            $queryArray['page'] = "profile";
+                            // build the new query string
+                            $newQueryStr = http_build_query($queryArray);
+                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.$newQueryStr."'>Profile</a>";
+                        ?>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
