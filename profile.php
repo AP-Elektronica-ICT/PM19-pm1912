@@ -9,7 +9,8 @@ $dbname = 'Q6EhZWemZR';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
-
+session_start();
+$sessionid=$_SESSION['sessionid'];
 $id;
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
@@ -106,6 +107,7 @@ if(isset($_POST['but_react']))
     }
 }
 
+
 ?>
 <!-- Profile -->
 <div class="profile">
@@ -132,6 +134,14 @@ if(isset($_POST['but_react']))
                     </div>
                 </div>
             </div>";
+		// TODO: Code to check if session is own profile
+		if($id == $sessionid)
+		{ $profile .="
+		<div>
+		<button class="btn btn-outline-praimary btn-sm" onclick="delete_account()">Delete account</button>
+		</div>
+		"}
+		
         echo $profile
     ?>
                 
