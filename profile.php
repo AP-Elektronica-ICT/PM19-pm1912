@@ -134,15 +134,7 @@ if(isset($_POST['but_react']))
                     </div>
                 </div>
             </div>";
-		// TODO: Code to check if session is own profile
-		if($id == $sessionid)
-		{ $profile .="
-		<div>
-		<button class="btn btn-outline-praimary btn-sm" onclick="delete_account()">Delete account</button>
-		</div>
-		"}
-		
-        echo $profile
+        echo $profile;
     ?>
                 
     <!-- Posts -->
