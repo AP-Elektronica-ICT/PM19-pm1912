@@ -65,11 +65,15 @@ $deletemessage="<div>
 	array_push($firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
 	$var_count(count($toupdate));
 	$sql = "INSERT INTO accounts SET ";
+	$temp = false;
 	for ($i = 0; $i<$var_count, $i++) {
-		if ($updated[$i]!="" && $updated!=null )
-		$sql .= "{toupdate[$i]}={updated[$i]}";
-		$sql .= " WHERE $id=$sessionid";
-	}
+		if ($temp == true) 
+			{$sql .= ", "}
+		if ($updated[$i]!="" && $updated!=null ){
+			$sql .= "{toupdate[$i]}={updated[$i]} ";
+			}
+		}
+	$sql .= "WHERE $id=$sessionid";
 	}
 </div>
 }
