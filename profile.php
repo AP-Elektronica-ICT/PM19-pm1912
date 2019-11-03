@@ -9,7 +9,8 @@ $dbname = 'Q6EhZWemZR';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
-// Needs to be changed to SESSION
+session_start();
+$sessionid=$_SESSION['sessionid'];
 $id;
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
@@ -68,6 +69,17 @@ if(isset($_POST['but_upload']))
             move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
     
         }
+    }
+    else {
+        $message = "No input!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+}
+
+
+    if ($comment_text != "")
+    {
+        $db->query("INSERT INTO comments(user_id, post_id, text) values('".$id."','".$_POST['post-id']."','".$comment_text."')");
     }
     else {
         $message = "No input!";
@@ -216,7 +228,6 @@ if(isset($_POST['but_upload']))
                 </div>
             </div>";
         echo $profile;
-    
     ?>
     <!-- Friends Section -->
     <?php
