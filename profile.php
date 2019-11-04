@@ -77,17 +77,6 @@ if(isset($_POST['but_upload']))
 }
 
 
-    if ($comment_text != "")
-    {
-        $db->query("INSERT INTO comments(user_id, post_id, text) values('".$id."','".$_POST['post-id']."','".$comment_text."')");
-    }
-    else {
-        $message = "No input!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
-    }
-}
-
-
 ?>
 <!-- Profile -->
 <div class="profile">
