@@ -10,7 +10,6 @@ $dbname = 'Q6EhZWemZR';
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 session_start();
-$sessionid=$_SESSION['sessionid'];
 $id;
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
@@ -54,6 +53,7 @@ if(isset($POST)) {
 
 
 if (isset ($_SESSION[sessionid])) {
+$sessionid=$_SESSION['sessionid'];
 $deletemessage="
 <div>
 	<form action='registration.php' method='post'>
