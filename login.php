@@ -22,7 +22,7 @@
 		<div class="user_card">
 			<div class="d-flex justify-content-center">
 				<div class="brand_logo_container">
-					<img src="img/logo.png" class="brand_logo" alt="Programming Knowledge logo">
+					<!--<img src="img/logo.png" class="brand_logo" alt="Programming Knowledge logo"> -->
 				</div>
 			</div>	
 			<div class="d-flex justify-content-center form_container">
