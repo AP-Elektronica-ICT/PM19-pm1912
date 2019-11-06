@@ -22,7 +22,7 @@
 		<div class="user_card">
 			<div class="d-flex justify-content-center">
 				<div class="brand_logo_container">
-					<!--<img src="img/logo.png" class="brand_logo" alt="Programming Knowledge logo"> -->
+					<img src="img/logo.png" class="brand_logo" alt="Programming Knowledge logo">
 				</div>
 			</div>	
 			<div class="d-flex justify-content-center form_container">
@@ -84,18 +84,10 @@
 				url: 'jslogin.php',
 				data:  {username: username, password: password},
 				success: function(data){
-					alert(data);
-					if($.trim(data) === "1"){
-						<?php
-						$_SESSION['loggedin'] = true;
-
-						$_SESSION['session_id'] = $username;
-						?>
-						setTimeout(' window.location.href =  "index.php"', 1000);
-					}
+				    setTimeout(' window.location.href =  "index.php"', 1000);
 				},
 				error: function(data){
-					alert('there were errors while doing the operation.');
+					alert('there were erros while doing the operation.');
 				}
 			});
 
