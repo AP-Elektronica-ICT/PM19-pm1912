@@ -1,11 +1,7 @@
 <?php
-// phpMyAdmin: https://remotemysql.com/phpmyadmin/sql.php
 include 'database.php';
 
-$dbhost = 'remotemysql.com';
-$dbuser = 'Q6EhZWemZR';
-$dbpass = 'iEkb5TgEqO';
-$dbname = 'Q6EhZWemZR';
+include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -21,7 +17,6 @@ if (isset($_GET["account_id"])) {
     $account_id = $_GET["account_id"];
 }
 
-// http://localhost:8888/PM19-pm1912/?page=profile&id=1
 
 $accounts = $db->query('SELECT * FROM accounts WHERE id=' . $account_id)->fetchAll();
 

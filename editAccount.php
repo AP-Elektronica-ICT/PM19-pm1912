@@ -2,10 +2,7 @@
 // phpMyAdmin: https://remotemysql.com/phpmyadmin/sql.php
 include 'database.php';
 
-$dbhost = 'remotemysql.com';
-$dbuser = 'Q6EhZWemZR';
-$dbpass = 'iEkb5TgEqO';
-$dbname = 'Q6EhZWemZR';
+include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
