@@ -53,6 +53,7 @@ http://facebooklite.rf.gd
 - Jens Uenk
 - Anton Van Den Heuvel
 - Nick van Acker
+
 <a href="https://codeshack.io/super-fast-php-mysql-database-class/" target="_blank">David Adams's database class</a>
 
 ---
@@ -60,4 +61,4 @@ http://facebooklite.rf.gd
 ## License
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2019 © <a href="http://fvcproductions.com" target="_blank">FVCproductions</a>.
+- Copyright 2019 ©
