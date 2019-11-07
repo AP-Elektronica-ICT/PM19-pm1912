@@ -1,4 +1,7 @@
 <?php 
+
+
+
 session_start();
 if(!isset($_SESSION['userlogin']))
 {
@@ -9,10 +12,15 @@ if(!isset($_SESSION['userlogin']))
 		session_destroy();
 		unset($_SESSION);
 		header("Location: login.php");
-	}
+    }
+    
 
-echo $_SESSION['id'];
 ?>
+<?php
+    
+    
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -61,32 +69,61 @@ echo $_SESSION['id'];
                         ?>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="?page=editAccount">Edit Account</a>
                             <a class="dropdown-item" href="?page=deleteAccount">Delete Account</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="index.php?logout=true">Logout</a>
                         </div>
                     </li>
                 </ul>
             </div>
             <!-- Navigation | Search box -->
             <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Add Friends" aria-label="Search">
-                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+
+                    <form method='post' action='' enctype='multipart/form-data' method='post'>
+                        <input class="form-control mr-sm-2" type='text' name='search-input' id='search-input' class='form-control' id='exampleFormControlTextarea1' placeholder="Search Friends" aria-label="Search">
+                        <input class='btn btn-outline-light my-2 my-sm-0' type='submit' value='Search' name='button_search'>
+                    </form>
             </form>
         </nav>
         
         <!-- Main -->
         <main>
             <?php
-                if (isset($_GET["page"])) {
+                if ($_GET['search-input'])
+                {
+                    include 'database.php';
+
+                    include 'connect.php';
+
+                    $db = new db($dbhost, $dbuser, $dbpass, $dbname);
+                    
+                    $friend_searches = $db->query("SELECT * FROM accounts WHERE username LIKE '%" . $_GET['search-input'] . "%'")->fetchAll();
+                    $found = false;
+                    foreach ($friend_searches as $friend_search) {
+                        include_once "search.php";
+                        $found = true;
+                    }
+                    if ($found == false)
+                    {
+                        echo "<div>No accounts found for that input</div>";
+                    }
+                }
+                else if (isset($_GET["page"])) {
                     $page = $_GET["page"];
                     include_once "$page.php";
                 }
+                else
+                {
+                    echo "<div>ERROR 404: This page doesn\'t exists.</div>";
+                }
+                
+
+                
             ?>
-            <a href="index.php?logout=true">Logout</a>
+            
         </main>
 
         <!-- Footer -->

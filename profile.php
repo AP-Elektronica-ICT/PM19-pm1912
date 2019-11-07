@@ -5,8 +5,7 @@ include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
-session_start();
-$sessionid=$_SESSION['sessionid'];
+
 $id;
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
@@ -15,6 +14,10 @@ if (isset($_GET["id"])) {
 $account_id;
 if (isset($_GET["account_id"])) {
     $account_id = $_GET["account_id"];
+}
+else 
+{
+    $account_id = $id;
 }
 
 
@@ -116,15 +119,9 @@ if(isset($_POST['but_upload']))
                 </div>
             </div>";
 
-            $edit_profile_secdtion = "
-            <div class='card-body'>
-                <a href='#' class='card-link'>Edit</a>
-            </div>
-            ";
         } 
         else {
             $new_post = "";
-            $edit_profile_secdtion = "";
         }
 
 
@@ -199,7 +196,6 @@ if(isset($_POST['but_upload']))
                         <li class='list-group-item'>Voornaam: " . $account_content['first_name'] . "</li>
                         <li class='list-group-item'>Telefoonnummer: " . $account_content['tel'] . "</li>
                     </ul>
-                    " . $edit_profile_secdtion . " 
                 </div>
                 
                 <div class='card' style='width: 18rem;'>
