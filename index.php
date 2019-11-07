@@ -1,3 +1,18 @@
+<?php 
+session_start();
+if(!isset($_SESSION['userlogin']))
+{
+    header('Location: login.php');
+}
+
+	if(isset($_GET['logout'])){
+		session_destroy();
+		unset($_SESSION);
+		header("Location: login.php");
+	}
+
+echo $_SESSION['id'];
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -70,11 +85,8 @@
                     $page = $_GET["page"];
                     include_once "$page.php";
                 }
-                else 
-                {
-                    include_once "login.php";
-                }
             ?>
+            <a href="index.php?logout=true">Logout</a>
         </main>
 
         <!-- Footer -->
