@@ -53,6 +53,7 @@ require_once('config.php');
 					
 					<hr class="mb-3">
 					<input class="btn btn-primary" type="submit" id="register" name="create" value="Sign Up">
+					<a href="login.php"> Back to login page</a>
 				</div>
 			</div>
 		</div>

@@ -14,7 +14,7 @@ if(isset($_POST)){
     $address        = $_POST['address'];
     $zip            = $_POST['zip'];
 	$tel         	= $_POST['tel'];
-	$password 		= $_POST['password'];
+	$password 		= sha1($_POST['password']);
 
 		$sql = "INSERT INTO accounts (first_name, last_name, username, email, number, city, address, zip, tel, password ) VALUES(?,?,?,?,?,?,?,?,?,?)";
 		$stmtinsert = $db->prepare($sql);

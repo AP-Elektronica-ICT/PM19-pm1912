@@ -2,21 +2,23 @@
 session_start();
 require_once('config.php');
 
-
 $username = $_POST['username'];
-$password = $_POST['password'];
+$password = sha1($_POST['password']);
 
 $sql = "SELECT * FROM accounts WHERE username = ? AND password = ? LIMIT 1";
 $stmtselect  = $db->prepare($sql);
 $result = $stmtselect->execute([$username, $password]);
 
+while($row = $stmtselect->fetch()) {
+    $user = $row["username"];
+    $pass = $row["password"];
+    $id = $row["id"];
+}
+
 if($result){
-	$user = $stmtselect->fetch(PDO::FETCH_ASSOC);
 	if($stmtselect->rowCount() > 0){
-		$_SESSION['userlogin'] = $user;
-		$sessionid= $db->query('SELECT id FROM accounts WHERE username = '.$username') ;
-		$_SESSION['sessionid'] = $sessionid;
-		echo '1';
+        $_SESSION['userlogin'] = $result;
+		$_SESSION['id'] = $id;
 	}else{
 		echo 'There no user for that combo';		
 	}

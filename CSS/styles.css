@@ -2,7 +2,50 @@ body,html{
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	background: #603abc !important;
+	background-color: white; 
+}
+
+main {
+    margin: 40px;
+}
+.navbar-brand {
+    font-weight: bolder;
+    margin-right: 100px;
+}
+.d-inline-block {
+    margin-right: 10px;
+}
+.profile {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    display: grid;
+    grid-column-gap: 20px;
+    grid-template-columns: auto 70%;
+    background-color: rgb(239, 239, 239);
+    padding: 40px;
+}
+.card {
+    margin-bottom: 30px;
+}
+.profile-pic-mini {
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+}
+.profile-pic-mini-comment {
+    height: 30px;
+    width: auto;
+    border-radius: 50%;
+}
+footer {
+    height: 70px;
+	background-color: #007bff;
+	
+}
+.wall {
+    width: 60%;
+    margin: auto;
 }
 
 .user_card{
