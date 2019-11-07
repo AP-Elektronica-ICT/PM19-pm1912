@@ -49,8 +49,7 @@ if(isset($POST)) {
     }
 
 
-if (isset ($_SESSION[sessionid])) {
-$sessionid=$_SESSION['sessionid'];
+if ($id == 1) {
 $deletemessage="
 <div>
 	<form action='registration.php' method='post'>
