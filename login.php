@@ -1,17 +1,10 @@
 <?php 
 
-	session_start();
-	
-	if(isset($_SESSION['userlogin'])){
-		header("Location: index.php");
-	}
-
-
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Programming Knowledge Login</title>
+	<title>Facebook Lite</title>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -84,7 +77,7 @@
 				url: 'jslogin.php',
 				data:  {username: username, password: password},
 				success: function(data){
-				    setTimeout(' window.location.href =  "index.php"', 1000);
+				    setTimeout('window.location.href =  "index.php"', 1000);
 				},
 				error: function(data){
 					alert('there were erros while doing the operation.');
