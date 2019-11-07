@@ -6,9 +6,11 @@ include 'connect.php';
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 
+
+session_start();
 $id;
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
+if (isset ($_SESSION['id'])) {
+    $id = $_SESSION['id'];
 }
 
 $account_id;

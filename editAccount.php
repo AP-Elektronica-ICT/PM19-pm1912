@@ -1,5 +1,4 @@
 <?php
-// phpMyAdmin: https://remotemysql.com/phpmyadmin/sql.php
 include 'database.php';
 
 include 'connect.php';
@@ -7,15 +6,11 @@ include 'connect.php';
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 session_start();
-$id;
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
+$sessionid;
+if (isset ($_SESSION['id'])) {
+    $sessionid = $_SESSION['id'];
 }
 
-$account_id;
-if (isset($_GET["account_id"])) {
-    $account_id = $_GET["account_id"];
-}
 ?>
 <?php
 if(isset($POST)) {
@@ -49,8 +44,8 @@ if(isset($POST)) {
     }
 
 
-if (isset ($_SESSION[sessionid])) {
-$sessionid=$_SESSION['sessionid'];
+if (isset ($_SESSION['id'])) {
+$sessionid=$_SESSION['id'];
 $deletemessage="
 <div>
 	<form action='registration.php' method='post'>

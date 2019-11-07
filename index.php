@@ -14,14 +14,8 @@ if(!isset($_SESSION['userlogin']))
 		header("Location: login.php");
     }
 
-
-echo $_SESSION['id'];
     
 
-?>
-<?php
-    
-    
 ?>
 
 <!doctype html>
@@ -120,14 +114,13 @@ echo $_SESSION['id'];
                 }
                 else
                 {
-                    echo "<div>ERROR 404: This page doesn\'t exists.</div>";
+                    echo "<div>ERROR 404: This page does not exist.</div>";
                 }
                 
 
                 
             ?>
             
-            <a href="index.php?logout=true">Logout</a>
             
         </main>
 
