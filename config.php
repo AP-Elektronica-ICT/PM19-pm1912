@@ -1,11 +1,13 @@
 <?php
 
-$dbhosta = 'remotemysql.com';
-$dbusera = 'Q6EhZWemZR';
-$dbpassa = 'iEkb5TgEqO';
-$dbnamea = 'Q6EhZWemZR';
+DO('mysql:host='. $dbhosta.';dbname='. $dbnamea . ';charset=utf8', $dbusera, $dbpassa);
+=======
+$dbhost = 'remotemysql.com';
+$dbuser = 'Q6EhZWemZR';
+$dbpass = 'iEkb5TgEqO';
+$dbname = 'Q6EhZWemZR';
 
 
-$db = new PDO('mysql:host='. $dbhosta.';dbname='. $dbnamea . ';charset=utf8', $dbusera, $dbpassa);
+$db = new PDO('mysql:host='. $dbhost.';dbname='. $dbname . ';charset=utf8', $dbuser, $dbpass);
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

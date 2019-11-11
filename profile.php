@@ -4,9 +4,6 @@ include 'database.php';
 include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
-
-
-
 session_start();
 $id;
 if (isset ($_SESSION['id'])) {
@@ -21,6 +18,7 @@ else
 {
     $account_id = $id;
 }
+
 
 
 $accounts = $db->query('SELECT * FROM accounts WHERE id=' . $account_id)->fetchAll();
@@ -120,7 +118,6 @@ if(isset($_POST['but_upload']))
                     </form>
                 </div>
             </div>";
-
         } 
         else {
             $new_post = "";

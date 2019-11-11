@@ -6,11 +6,11 @@ include 'connect.php';
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 session_start();
+
 $sessionid;
 if (isset ($_SESSION['id'])) {
     $sessionid = $_SESSION['id'];
 }
-
 ?>
 <?php
 if(isset($POST)) {

@@ -20,7 +20,6 @@ else
 {
     $account_id = $id;
 }
-
 ?>
 <div class="wall">
     <?php

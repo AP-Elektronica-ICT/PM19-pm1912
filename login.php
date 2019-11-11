@@ -80,7 +80,8 @@
 				    setTimeout('window.location.href =  "index.php?page=wall"', 1000);
 				},
 				error: function(data){
-					alert('There were erros while doing the operation.');
+					alert('There were errors while doing the operation.');
+
 				}
 			});
 

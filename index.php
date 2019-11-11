@@ -13,9 +13,6 @@ if(!isset($_SESSION['userlogin']))
 		unset($_SESSION);
 		header("Location: login.php");
     }
-
-    
-
 ?>
 
 <!doctype html>
@@ -120,7 +117,6 @@ if(!isset($_SESSION['userlogin']))
 
                 
             ?>
-            
             
         </main>
 
