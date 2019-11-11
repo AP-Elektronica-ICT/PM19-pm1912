@@ -1,26 +1,25 @@
 <?php
-// phpMyAdmin: https://remotemysql.com/phpmyadmin/sql.php
 include 'database.php';
 
-$dbhost = 'remotemysql.com';
-$dbuser = 'Q6EhZWemZR';
-$dbpass = 'iEkb5TgEqO';
-$dbname = 'Q6EhZWemZR';
+include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
-// Needs to be changed to SESSION
+session_start();
+
 $id;
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
+if (isset ($_SESSION['id'])) {
+    $id = $_SESSION['id'];
 }
 
 $account_id;
 if (isset($_GET["account_id"])) {
     $account_id = $_GET["account_id"];
 }
-
-// http://localhost:8888/PM19-pm1912/?page=wall&id=1&account_id=1
+else
+{
+    $account_id = $id;
+}
 ?>
 <div class="wall">
     <?php

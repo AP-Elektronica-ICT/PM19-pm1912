@@ -1,5 +1,4 @@
 <?php
-// phpMyAdmin: https://remotemysql.com/phpmyadmin/sql.php
 include 'database.php';
 
 include 'connect.php';
@@ -8,8 +7,9 @@ $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 session_start();
 
-if (isset ($_SESSION[sessionid])) {
-$sessionid=$_SESSION['sessionid'];
+if (isset ($_SESSION['id'])) {
+$sessionid = $_SESSION['id'];
+
 $deletemessage="<div>
 		<div> Are you sure you want to delete your account? </div>
 		<button class='btn btn-outline-praimary btn-sm' onclick='delete_account()'>Delete account</button>

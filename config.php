@@ -1,5 +1,7 @@
 <?php
 
+DO('mysql:host='. $dbhosta.';dbname='. $dbnamea . ';charset=utf8', $dbusera, $dbpassa);
+=======
 $dbhost = 'remotemysql.com';
 $dbuser = 'Q6EhZWemZR';
 $dbpass = 'iEkb5TgEqO';

@@ -77,10 +77,11 @@
 				url: 'jslogin.php',
 				data:  {username: username, password: password},
 				success: function(data){
-				    setTimeout('window.location.href =  "index.php"', 1000);
+				    setTimeout('window.location.href =  "index.php?page=wall"', 1000);
 				},
 				error: function(data){
-					alert('there were erros while doing the operation.');
+					alert('There were errors while doing the operation.');
+
 				}
 			});
 
