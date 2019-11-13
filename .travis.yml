@@ -21,7 +21,7 @@ matrix:
    - php: 5.6
    - php: hhvm
  fast_finish: true
-# Customize when the notification emails are sent.
+# Customize when the notification emails are sent. test dummy
 notifications:
    on_success: never
    on_failure: always
