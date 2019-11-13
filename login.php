@@ -15,7 +15,7 @@
 		<div class="user_card">
 			<div class="d-flex justify-content-center">
 				<div class="brand_logo_container">
-					<img src="img/logo.png" class="brand_logo" alt="Programming Knowledge logo">
+					<img src="img/fb-icon.png" class="brand_logo" alt="Programming Knowledge logo">
 				</div>
 			</div>	
 			<div class="d-flex justify-content-center form_container">
@@ -49,7 +49,7 @@
 					Don't have an account? <a href="registration.php" class="ml-2">Sign Up</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a href="#">Forgot your password?</a>
+					<a class="ml-2" href="#">Forgot your password?</a>
 				</div>
 			</div>
 		</div>
