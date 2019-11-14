@@ -7,13 +7,24 @@ $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 session_start();
 
+
 if (isset ($_SESSION['id'])) {
 $sessionid = $_SESSION['id'];
 
-$deletemessage="<div>
-		<div> Are you sure you want to delete your account? </div>
-		<button class='btn btn-outline-praimary btn-sm' onclick='delete_account()'>Delete account</button>
-		</div>";
+	if(isset($_POST['delete_account']))
+	{
+		$db->query("DELETE FROM accounts WHERE id=" . $sessionid);
+	}
+
+	$deletemessage="<div>
+			<div> Are you sure you want to delete your account? </div>
+				<form method='post' action='' enctype='multipart/form-data' method='post'>
+					<input class='btn btn-danger btn-sm' type='submit' value='Delete account' name='delete_account'>
+				</form>
+				<form method='get' action='' enctype='multipart/form-data' method='get'>
+					<button class='btn btn-outline-primary btn-sm' type='submit' value='profile' name='page'>Cancel</button>
+				</form>
+			</div>";
 }
 else {
 	$deletemessage="<div>You must create an account or log in in order to delete your account.</div>";
@@ -22,16 +33,3 @@ else {
 <div>
 	<?php echo $deletemessage; ?>
 </div>
-
-<script>
-	function delete_account() {
-	var confirmation;
-	if (confirm("Are you sure you want to delete your account?"))
-		{
-		confirmation = "yes";
-		<?php
-		$db->query("DELETE FROM accounts WHERE id='.$sessionid.'")
-		?>
-		} 
-	else {};
-</script>
