@@ -177,12 +177,16 @@ if(isset($_POST['but_upload']))
         {
             $friend_list = "No friends";
         }
-
-
+		$profileImageID = $db->query('SELECT imageID FROM images WHERE ImageId=' . $id);
+		$profileImages= $db->query('SELECT * FROM images WHERE ImageId=' . $profileImageID . ' ORDER BY ImageID DESC LIMIT 1')->fetchAll();
+            foreach ($profileImages as $image) {
+                $image_name = $image;
+            }
+			$accounts = $db->query('SELECT * FROM accounts WHERE id=' . $account_id)->fetchAll();
         $profile = "
             <div class='profile-info'>
                 <div class='card' style='width: 18rem;'>
-                    <img src='img/dummy/profile-image.png' class='card-img-top' alt='...'>
+                    <img src='img/dummy/" .$image_name['imageFileName'] . "alt='...'>
                     <div class='card-body'>
                         <h5 class='card-title'>" . $account_content['first_name'] . " " . $account_content['last_name'] . "
                             <h6>" . $account_content['user_name'] . "</h6>
