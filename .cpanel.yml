@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/user/public_html/
+    - export DEPLOYPATH=/home/socialsa/public_html/
     - /bin/cp wall.php $DEPLOYPATH
     - /bin/cp index.php $DEPLOYPATH
     - /bin/cp search.php $DEPLOYPATH
