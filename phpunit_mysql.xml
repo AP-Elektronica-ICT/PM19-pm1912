@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true">
+    <php>
+        <var name="db_dsn" value="mysql:dbname=Q6EhZWemZR;host=remotemysql.com"/>
+        <var name="db_username" value="Q6EhZWemZR"/>
+        <var name="db_password" value="iEkb5TgEqO"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Database Test Suite">
+            <directory>./Tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./Tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
