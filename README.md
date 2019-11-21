@@ -8,7 +8,7 @@ FaceBook Lite is a basic social networking software written in PHP. It allows yo
 ### Demo
 
 You can check it out on our demo platform:
-http://socialsatelitte.xyz/
+http://socialsatellite.xyz/
 
 ---
 
