@@ -7,3 +7,4 @@ php:
 script:
    - ./build.sh
    - ./build2.sh
+   - ./phpunit-8.4.3.phar
