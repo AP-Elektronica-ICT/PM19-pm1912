@@ -1,0 +1,21 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/socialsa/public_html/
+    - /bin/cp wall.php $DEPLOYPATH
+    - /bin/cp index.php $DEPLOYPATH
+    - /bin/cp search.php $DEPLOYPATH
+    - /bin/cp registration.php $DEPLOYPATH
+    - /bin/cp profile.php $DEPLOYPATH
+    - /bin/cp process.php $DEPLOYPATH
+    - /bin/cp posts.php $DEPLOYPATH
+    - /bin/cp login.php $DEPLOYPATH
+    - /bin/cp jslogin.php $DEPLOYPATH
+    - /bin/cp editAccount.php $DEPLOYPATH
+    - /bin/cp deleteAccount.php $DEPLOYPATH
+    - /bin/cp database.php $DEPLOYPATH
+    - /bin/cp connect.php $DEPLOYPATH
+    - /bin/cp config.php $DEPLOYPATH
+    - /bin/cp -R img $DEPLOYPATH
+    - /bin/cp -R css $DEPLOYPATH
+    - /bin/cp -R Javascript $DEPLOYPATH
