@@ -17,7 +17,7 @@ if($result){
 	if($stmtselect->rowCount() > 0){
         $_SESSION['userlogin'] = $result;
 		$_SESSION['id'] = $id;
-        header('Location: index.php');
+        header('Location: index.php?page=wall');
 	}else{
 		echo 'There no user for that combo';
         header('Location: login.php');              
