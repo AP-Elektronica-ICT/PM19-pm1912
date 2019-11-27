@@ -29,4 +29,4 @@ matrix:
 # use the $DB env variable to determine the phpunit.xml to use
 script: -
    - phpunit --configuration phpunit_mysql.xml --coverage-text
-   - if [ "$TRAVIS_BRANCH" = "DevBranch" ]; then ./Deploy.sh; fi
+   - if [ "$TRAVIS_BRANCH" = "DevBranch" ]; then ./Deploy.sh; else echo "Deployed";fi
