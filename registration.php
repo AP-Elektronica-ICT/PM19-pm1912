@@ -12,7 +12,7 @@ require_once('config.php');
 
 
 <div>
-	<form action="registration.php" method="post">
+	<form action="process.php" method="post">
 		<div class="container">
 			
 			<div class="row">
@@ -52,73 +52,12 @@ require_once('config.php');
 					<input class="form-control" id="password"  type="password" name="password" required>
 					
 					<hr class="mb-3">
-					<input class="btn btn-primary" type="submit" id="register" name="create" value="Sign Up">
+					<input class="btn btn-primary" input type="submit" id="register" value="Sign Up">
 					<a href="login.php"> Back to login page</a>
 				</div>
 			</div>
 		</div>
 	</form>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<script type="text/javascript">
-	$(function(){
-		$('#register').click(function(e){
-
-			var valid = this.form.checkValidity();
-
-			if(valid){
-
-
-			var firstname 	= $('#firstname').val();
-			var lastname	= $('#lastname').val();
-            var username    = $('#username').val();
-			var email 		= $('#email').val();
-            var number      = $('#number').val();
-            var city        = $('#city').val(); 
-            var address     = $('#address').val(); 
-            var zip         = $('#zip').val(); 
-			var tel         = $('#tel').val();
-			var password 	= $('#password').val();
-			
-
-				e.preventDefault();	
-
-				$.ajax({
-					type: 'POST',
-					url: 'process.php',
-					data: {firstname: firstname,lastname: lastname,username: username,email: email,number: number,city: city,address: address,zip: zip,tel: tel,password: password},
-					success: function(data){
-					Swal.fire({
-								'title': 'Successful',
-								'text': data,
-								'type': 'success'
-								})
-							
-					},
-					error: function(data){
-						Swal.fire({
-								'title': 'Errors',
-								'text': 'There were errors while saving the data.',
-								'type': 'error'
-								})
-					}
-				});
-
-				
-			}else{
-				
-			}
-
-			
-
-
-
-		});		
-
-		
-	});
-	
-</script>
 </body>
 </html>
