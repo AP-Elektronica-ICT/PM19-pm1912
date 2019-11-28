@@ -20,7 +20,7 @@ if(isset($_POST)){
 		$stmtinsert = $db->prepare($sql);
 		$result = $stmtinsert->execute([$firstname, $lastname,$username, $email,$number,$city,$address,$zip, $tel, $password]);
 		if($result){
-			echo 'Successfully saved.';
+			header('Location: login.php');
 		}else{
 			echo 'There were erros while saving the data.';
 		}
