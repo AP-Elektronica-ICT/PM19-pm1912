@@ -14,6 +14,7 @@ $sessionid = $_SESSION['id'];
 	if(isset($_POST['delete_account']))
 	{
 		$db->query("DELETE FROM accounts WHERE id=" . $sessionid);
+		session_destroy();
 	}
 
 	$deletemessage="<div>
