@@ -3,6 +3,15 @@ class registrationclass
 {
     public $first,$pass,$last,$user,$email,$number,$city,$address,$zip,$tel;
     
+    public $dbhosta = 'remotemysql.com';
+	public $dbusera = 'Q6EhZWemZR';
+	public $dbpassa = 'iEkb5TgEqO';
+	public $dbnamea = 'Q6EhZWemZR';
+
+
+	public $db;
+
+    
     function __construct($f,$p,$l,$u,$e,$n,$c,$a,$z,$t)
     {
         $this->first = $f;
@@ -14,17 +23,39 @@ class registrationclass
         $this->city = $c;
         $this->address = $a;
         $this->zip = $z;
-        $this->tel = $t;                   
+        $this->tel = $t;   
+        
+        $this->db = new PDO('mysql:host='. $this->dbhosta.';dbname='. $this->dbnamea . ';charset=utf8', $this->dbusera, $this->dbpassa);
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);       
     }
     
+    public function add()
+    {   
+		$sql = "INSERT INTO accounts (first_name, last_name, username, email, number, city, address, zip, tel, password ) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		$stmtinsert = $this->db->prepare($sql);
+		$result = $stmtinsert->execute([$this->first, $this->last,$this->user, $this->email,$this->number,$this->city,$this->address,$this->zip, $this->tel, $this->pass]);
+        if($result)
+        {
+        	return true;
+        }
+        return false;
+    }
+    
+    public function remove()
+    {       
+		$sql = "DELETE from accounts where username='BuildTest'";
+		$stmtinsert = $this->db->prepare($sql);
+		$result = $stmtinsert->execute([$this->first, $this->last,$this->user, $this->email,$this->number,$this->city,$this->address,$this->zip, $this->tel, $this->pass]);
+        if($result)
+        {
+        	return true;
+        }
+        return false;
+    }
     
     public function WriteValuesToDatabase()
     {
-        require_once('config.php');
-		$sql = "INSERT INTO accounts (first_name, last_name, username, email, number, city, address, zip, tel, password ) VALUES(?,?,?,?,?,?,?,?,?,?)";
-		$stmtinsert = $db->prepare($sql);
-		$result = $stmtinsert->execute([$this->first, $this->last,$this->user, $this->email,$this->number,$this->city,$this->address,$this->zip, $this->tel, $this->pass]);
-		if($result){
+		if($this->add()){
             header('Location: login.php');
 		}
         else 
@@ -33,8 +64,6 @@ class registrationclass
         }
     }
 }
-
-$xd = new registrationclass("test","test","test","test","test","test","test","test","test","test");
+//$xd = new registrationclass("test","test","test","test","test","test","test","test","test","test");
 //$xd->WriteValuesToDatabase();
-
 ?>
