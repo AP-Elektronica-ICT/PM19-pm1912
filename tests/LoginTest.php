@@ -12,10 +12,7 @@ class LoginTest extends TestCase
 
     public function __construct()
     {
-        $this->calc = new loginclass("sha1","123");
-        /*
-        $this->calc = new registrationclass("BuildTest","BuildTest","BuildTest","BuildTest","BuildTest",0,"BuildTest","BuildTest",0,0);
-        */
+        $this->calc = new Login("sha1","123");
         parent::__construct();
     }
 
@@ -24,20 +21,4 @@ class LoginTest extends TestCase
         $value = $this->calc->LoginUser();
         $this->assertEquals($value, true);
     }
-        
-    /*
-
-    public function testAdd()
-    {
-        $value = $this->calc->add();
-        $this->assertEquals($value, true);
-    }
-    
-    
-    public function testDelete()
-	{
-		$value = $this->calc->remove();
-        $this->assertEquals($value, true);
-	}
-    */
 }
