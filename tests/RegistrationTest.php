@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use registrationclass;
 
 
-class RegisterTest extends TestCase
+class RegistrationTest extends TestCase
 {
     private $calc;
 
@@ -15,8 +15,6 @@ class RegisterTest extends TestCase
         $this->calc = new registrationclass("BuildTest","BuildTest","BuildTest","BuildTest","BuildTest",0,"BuildTest","BuildTest",0,0);
         parent::__construct();
     }
-
-
     public function testAdd()
     {
         $value = $this->calc->add();
