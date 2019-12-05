@@ -1,5 +1,5 @@
 <?php
-class Login 
+class loginclass 
 {
     private $username,$password;
     
