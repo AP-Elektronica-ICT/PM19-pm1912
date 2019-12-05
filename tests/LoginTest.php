@@ -12,7 +12,7 @@ class LoginTest extends TestCase
 
     public function __construct()
     {
-        $this->calc = new loginclass("sha1","123");
+        $this->calc = new loginclass("sha1",sha1("123"));
         parent::__construct();
     }
 

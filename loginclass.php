@@ -25,7 +25,8 @@ class loginclass
         $stmtselect  = $this->db->prepare($sql);
         $result = $stmtselect->execute([$this->username, $this->password]);        
      
-        if($result && $stmtselect->rowCount() > 0){
+        if($result && $stmtselect->rowCount() > 0)
+        {
             return true;
         }
         return false;
