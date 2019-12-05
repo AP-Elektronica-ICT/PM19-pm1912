@@ -24,12 +24,8 @@ class Login
     {    
         $sql = "SELECT * FROM accounts WHERE username = ? AND password = ? LIMIT 1";
         $stmtselect  = $db->prepare($sql);
-        $result = $stmtselect->execute([$this->username, $this->password]);
-        
-        while($row = $stmtselect->fetch()) {
-        $id = $row["id"];            
-}
-        
+        $result = $stmtselect->execute([$this->username, $this->password]);        
+     
         if($result){
 	       if($stmtselect->rowCount() > 0){
                 return true;
