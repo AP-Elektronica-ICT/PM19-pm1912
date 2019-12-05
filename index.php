@@ -28,13 +28,13 @@ if(!isset($_SESSION['userlogin']))
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css" type="text/css">
 
-    <title>FaceBook Lite</title>
+    <title>Social Satellite</title>
     </head>
     <body>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">
-                <img src="img/fb-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">FaceBook Lite
+                <img src="img/fb-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">Social Satellite
             </a>
             <!-- Navigation | Tabs -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
