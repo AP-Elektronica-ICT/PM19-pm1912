@@ -27,14 +27,12 @@ class Login
         $result = $stmtselect->execute([$this->username, $this->password]);        
      
         if($result){
-	       if($stmtselect->rowCount() > 0){
+	       if($stmtselect->rowCount() > 0)
+           {
                 return true;
-	}  else{
-        return false;            
-	}
-}else{
-    return false;      
-}
+	       }
+            return false;
+        }
     }
 }
 
