@@ -24,12 +24,15 @@ class Login
 	       if($stmtselect->rowCount() > 0){
                 $_SESSION['userlogin'] = $result;
 		        $_SESSION['id'] = $id;
+                return true;
                 header('Location: index.php');
 	}  else{
+        return false;
         echo 'There no user for that combo';
         header('Location: login.php');              
 	}
 }else{
+    return false;      
 	echo 'There were errors while connecting to database.';
 }
     }
