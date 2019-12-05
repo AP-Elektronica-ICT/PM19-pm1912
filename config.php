@@ -1,9 +1,9 @@
 <?php
 
-$dbhosta = 'remotemysql.com';
-$dbusera = 'Q6EhZWemZR';
-$dbpassa = 'iEkb5TgEqO';
-$dbnamea = 'Q6EhZWemZR';
+$dbhosta = 'eu-sql.pebblehost.com';
+$dbusera = 'customer_93889';
+$dbpassa = '64a2b900dd';
+$dbnamea = 'customer_93889';
 
 
 $db = new PDO('mysql:host='. $dbhosta.';dbname='. $dbnamea . ';charset=utf8', $dbusera, $dbpassa);
