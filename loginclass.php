@@ -8,7 +8,6 @@ class loginclass
 	public $dbpassa = 'iEkb5TgEqO';
 	public $dbnamea = 'Q6EhZWemZR';
 
-
 	public $db;
 
     
@@ -23,7 +22,7 @@ class loginclass
     function LoginUser()
     {    
         $sql = "SELECT * FROM accounts WHERE username = ? AND password = ? LIMIT 1";
-        $stmtselect  = $db->prepare($sql);
+        $stmtselect  = $this->db->prepare($sql);
         $result = $stmtselect->execute([$this->username, $this->password]);        
      
         if($result){
