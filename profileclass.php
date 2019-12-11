@@ -33,7 +33,6 @@ class profileclass
 		$stmtinsert = $this->db->prepare($sql);
         $result = $stmtinsert->execute();
 
-        $post = mysql_fetch_row($result);
         if($result)
         {
         	return true;
@@ -46,7 +45,6 @@ class profileclass
 		$stmtinsert = $this->db->prepare($sql);
         $result = $stmtinsert->execute();
 
-        $post = mysql_fetch_row($result);
         if($result)
         {
             if ($friends)
