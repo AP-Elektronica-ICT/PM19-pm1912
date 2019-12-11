@@ -22,4 +22,11 @@ class ProfileTest extends TestCase
         $value = $this->calc->getPosts();
         $this->assertEquals($value, true);
     }
+
+    public function testCanViewPost()
+    {
+        $value = $this->calc->canViewPost(true, 58);
+        $this->assertEquals($value, "yes");
+    }
+    
 }

@@ -2,6 +2,13 @@
 class profileclass
 {
     public $id;
+    public $first_name;
+    public $last_name;
+    public $user_name;
+    public $number;
+    public $address;
+    public $tel;
+
     
     public $dbhosta = 'eu-sql.pebblehost.com';
     public $dbusera = 'customer_93889';
@@ -24,23 +31,60 @@ class profileclass
     {   
 		$sql = "SELECT * FROM posts WHERE user_id=" . $this->id;
 		$stmtinsert = $this->db->prepare($sql);
-		$result = $stmtinsert->execute();
+        $result = $stmtinsert->execute();
+
+        $post = mysql_fetch_row($result);
         if($result)
         {
         	return true;
         }
         return false;
     }
-    public function getInfo()
+    public function canViewPost($friends, $postid)
     {   
-		$sql = "INSERT INTO accounts (first_name, last_name, username, email, number, city, address, zip, tel, password ) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		$sql = "SELECT * FROM posts WHERE post_id=" . $postid;
 		$stmtinsert = $this->db->prepare($sql);
-		$result = $stmtinsert->execute([$this->first, $this->last,$this->user, $this->email,$this->number,$this->city,$this->address,$this->zip, $this->tel, $this->pass]);
+        $result = $stmtinsert->execute();
+
+        $post = mysql_fetch_row($result);
         if($result)
         {
-        	return true;
+            if ($friends)
+            {
+                return "yes";
+            }
+            else {
+                return "no";
+            }
         }
-        return false;
+        return "error";
+    }
+    public function LikePost($postid, $userid)
+    {   
+		$sql = "SELECT * FROM posts WHERE user_id=" . $this->id;
+		$stmtinsert = $this->db->prepare($sql);
+        $result = $stmtinsert->execute();
+    }
+
+    public function ViewPost($postid, $userid)
+    {   
+		$sql = "SELECT * FROM posts WHERE user_id=" . $this->id;
+		$stmtinsert = $this->db->prepare($sql);
+        $result = $stmtinsert->execute();
+    }
+
+    public function ReactPost($postid, $userid, $string)
+    {   
+		$sql = "INSERT INTO POSTS postid=". $postid . " text=" .$string. "";
+		$stmtinsert = $this->db->prepare($sql);
+        $result = $stmtinsert->execute();
+    }
+
+    public function getInfo()
+    {   
+		$sql = "SELECT FROM accounts (first_name, last_name, username, email, number, city, address, zip, tel, password ) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		$stmtinsert = $this->db->prepare($sql);
+		$result = $stmtinsert->execute([$this->first, $this->last,$this->user, $this->email,$this->number,$this->city,$this->address,$this->zip, $this->tel, $this->pass]);
     }
 }
 ?>
