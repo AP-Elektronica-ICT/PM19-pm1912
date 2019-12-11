@@ -123,7 +123,7 @@ if(!isset($_SESSION['userlogin']))
         <!-- Footer -->
         <footer id="sticky-footer" class="py-4 navbar-dark bg-primary text-white-50">
             <div class="container text-center">
-                <small>Copyright &copy; FaceBook Lite</small>
+                <small>Copyright &copy; Social Satellite</small>
             </div>
         </footer>
         
