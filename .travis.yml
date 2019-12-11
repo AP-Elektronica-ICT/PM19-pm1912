@@ -29,6 +29,7 @@ branches:
   only:
   - master
   - dev
+  - ProfilUnitTest
 
 # You can delete the cache using travis-ci web interface
 cache:
