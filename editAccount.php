@@ -4,12 +4,19 @@ include 'database.php';
 include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
-
 session_start();
-
-$sessionid;
+$id;
 if (isset ($_SESSION['id'])) {
-    $sessionid = $_SESSION['id'];
+    $id = $_SESSION['id'];
+}
+
+$account_id;
+if (isset($_GET["account_id"])) {
+    $account_id = $_GET["account_id"];
+}
+else 
+{
+    $account_id = $id;
 }
 ?>
 <?php
@@ -94,9 +101,7 @@ if(isset($_POST['but_upload'])) {
 }
 
 
-if (isset ($_SESSION['id'])) {
-$sessionid=$_SESSION['id'];
-$deletemessage="
+
 <div>
 	<form action='registration.php' method='post'>
 		<div class='container'>
@@ -146,14 +151,4 @@ $deletemessage="
 			</div>
 		</div>
 	</form>
-</div>";
-}
-else {
-	$deletemessage="<div>You must create an account or log in in order to edit your account.</div>";
-}
-
-
-?>
-<div>
-	<?php echo $deletemessage; ?>
 </div>
