@@ -177,16 +177,23 @@ if(isset($_POST['but_upload']))
         {
             $friend_list = "No friends";
         }
-		$profileImageID = $db->query('SELECT imageID FROM images WHERE ImageId=' . $id);
-		$profileImages= $db->query('SELECT * FROM images WHERE ImageId=' . $profileImageID . ' ORDER BY ImageID DESC LIMIT 1')->fetchAll();
-            foreach ($profileImages as $image) {
-                $image_name = $image;
-            }
-			$accounts = $db->query('SELECT * FROM accounts WHERE id=' . $account_id)->fetchAll();
+		$profileImageIDs;
+		$profileImageID;
+		$image_name;
+		$profileImageIDs = $db->query('SELECT imageID FROM images WHERE userID=' . $account_content['id'] . ' ORDER BY ImageID DESC LIMIT 1')->fetchall();
+		foreach ($profileImageIDs as $imageID) {
+			$profileImageID = $imageID
+		}
+		if ($profileImageID != null) {
+		$image_name= $db->query('SELECT imageFileName FROM images WHERE ImageId=' . $profileImageID);          
+		}
+		else {
+		$image_name = "dummy/profile-image.png";
+		}
         $profile = "
             <div class='profile-info'>
                 <div class='card' style='width: 18rem;'>
-                    <img src='img/dummy/" .$image_name['imageFileName'] . "alt='...'>
+                    <img src='img/" . $image_name . " class='card-img-top' alt='...'>
                     <div class='card-body'>
                         <h5 class='card-title'>" . $account_content['first_name'] . " " . $account_content['last_name'] . "
                             <h6>" . $account_content['user_name'] . "</h6>
