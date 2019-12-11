@@ -3,7 +3,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use profile;
+use profileclass;
 
 
 class ProfileTest extends TestCase
@@ -12,7 +12,7 @@ class ProfileTest extends TestCase
 
     public function __construct()
     {
-        $this->calc = new profile(5);
+        $this->calc = new profileclass(5);
         parent::__construct();
     }
 
