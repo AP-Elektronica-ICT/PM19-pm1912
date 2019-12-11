@@ -22,7 +22,7 @@ class profileclass
     
     public function getPosts()
     {   
-		$sql = "SELECT * FROM posts WHERE user_id=" + $this->id;
+		$sql = "SELECT * FROM posts WHERE user_id=" . $this->id;
 		$stmtinsert = $this->db->prepare($sql);
 		$result = $stmtinsert->execute();
         if($result)
