@@ -114,8 +114,6 @@ if(!isset($_SESSION['userlogin']))
                     echo "<div>ERROR 404: This page does not exist.</div>";
                 }
                 
-
-                
             ?>
             
         </main>
