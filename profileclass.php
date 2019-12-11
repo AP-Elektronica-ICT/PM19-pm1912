@@ -42,7 +42,7 @@ class profileclass
     }
     public function canViewPost($friends, $postid)
     {   
-		$sql = "SELECT * FROM posts WHERE post_id=" . $postid;
+		$sql = "SELECT * FROM posts WHERE id=" . $postid;
 		$stmtinsert = $this->db->prepare($sql);
         $result = $stmtinsert->execute();
 
