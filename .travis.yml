@@ -24,9 +24,7 @@ env:
 
 #after_script:
 after_success:
-- curl --ftp-create-dirs
-       -T filename
-       ftp://${FTP_USER}:${FTP_PASSWORD}@51.83.66.220/filename
+    "curl -T index.html -u $FTP_USER:$FTP_PASSWORD ftp://51.83.66.220"
 
 #after_failure:
 
