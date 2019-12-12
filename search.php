@@ -28,11 +28,11 @@
 
 if (isset($_GET["page"]) && $_GET["page"]=='wall') 
 {
-    echo "<script>window.location = 'index.php?account_id=1&page=wall'</script>"; 
+    echo "<script>window.location = 'index.php?account_id=".$_SESSION['id']."&page=wall'</script>";  
 }
 else if(isset($_GET["page"]) && $_GET["page"]=='profile')
 {
-    echo "<script>window.location = 'index.php?account_id=1&page=profile'</script>"; 
+    echo "<script>window.location = 'index.php?account_id=".$_SESSION['id']."&page=profile'</script>"; 
 }
 
 ?> 
