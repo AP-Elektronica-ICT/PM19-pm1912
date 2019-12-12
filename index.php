@@ -51,7 +51,7 @@ if(!isset($_SESSION['userlogin']))
                             $queryArray['page'] = "wall";
                             // build the new query string
                             $newQueryStr = http_build_query($queryArray);
-                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.$newQueryStr."'>Wall</a>";
+                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.'account_id='.$_SESSION['id'].'&page=wall'."'>Wall</a>";
                         ?>
                     </li>
                     <li class="nav-item">
@@ -59,7 +59,7 @@ if(!isset($_SESSION['userlogin']))
                             $queryArray['page'] = "profile";
                             // build the new query string
                             $newQueryStr = http_build_query($queryArray);
-                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.$newQueryStr."'>Profile</a>";
+                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.'account_id='.$_SESSION['id'].'&page=profile'."'>Profile</a>";
                         ?>
                     </li>
                     <li class="nav-item dropdown">
