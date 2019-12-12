@@ -23,7 +23,7 @@ script:
 #    - "FTP_PASSWORD=pass"
 #after_script:
 after_success:
-    "curl -T index.php -u $FTP_USER:$FTP_PASSWORD ftps://socialsatellite.xyz/public_html/"
+    "curl -T index.php -u $FTP_USER:$FTP_PASSWORD ftp://socialsatellite.xyz/public_html/"
 
 #after_failure:
 
