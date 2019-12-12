@@ -1,9 +1,9 @@
 
-# FaceBook Lite
+# Social Satellite
 [![Build Status](https://travis-ci.org/AP-Elektronica-ICT/PM19-pm1912.svg?branch=master)](https://travis-ci.org/AP-Elektronica-ICT/PM19-pm1912)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-FaceBook Lite is a basic social networking software written in PHP. It allows you to make a social networking website and helps your members build social relationships. We aimed to create a realy basic version of the popular social network platform FaceBook.
+Social Satellite is a basic social networking software written in PHP. It allows you to make a social networking website and helps your members build social relationships. We aimed to create a realy basic version of the popular social network platform FaceBook.
 
 ### Demo
 

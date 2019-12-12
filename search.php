@@ -1,4 +1,5 @@
 <?php
+
     // parse the url
     $pathInfo = parse_url($_SERVER['REQUEST_URI']);
     // convert the query parameters to an array
@@ -8,6 +9,7 @@
     $queryArray['page'] = "profile";
     // build the new query string
     $newQueryStr = http_build_query($queryArray);
+
     echo "
     <div class='wall'>
     <div class='card-header'>
@@ -21,5 +23,16 @@
                 </div>
             </div>
     </div>
-    "
+    ";   
+
+
+if (isset($_GET["page"]) && $_GET["page"]=='wall') 
+{
+    echo "<script>window.location = 'index.php?account_id=".$_SESSION['id']."&page=wall'</script>";  
+}
+else if(isset($_GET["page"]) && $_GET["page"]=='profile')
+{
+    echo "<script>window.location = 'index.php?account_id=".$_SESSION['id']."&page=profile'</script>"; 
+}
+
 ?> 
