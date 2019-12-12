@@ -23,9 +23,7 @@ script:
 #    - "FTP_PASSWORD=pass"
 #after_script:
 after_success:
-- curl --ftp-create-dirs
-       -T index.php
-       sftp://FTP_USER:$FTP_PASSWORD@socialsatellite.xyz/public_html/index.php
+    "curl -T index.php -u $FTP_USER:$FTP_PASSWORD ftps://socialsatellite.xyz/public_html/"
 
 #after_failure:
 
