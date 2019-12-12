@@ -16,11 +16,17 @@ install:
 script:
 - composer test -- --coverage-clover=coverage.xml
 
-#after_script:
+  
+env:
+  global:
+  - 'FTP_USER=[user]'
+  - 'FTP_PASSWORD=[password]'
 
+#after_script:
 after_success:
-# Submit coverage report to https://codecov.io
-- bash <(curl -s https://codecov.io/bash)
+- curl --ftp-create-dirs
+       -T filename
+       ftp://${FTP_USER}:${FTP_PASSWORD}@51.83.66.220/filename
 
 #after_failure:
 
