@@ -19,8 +19,8 @@ script:
   
 env:
   global:
-    - "FTP_USER=user"
-    - "FTP_PASSWORD=password"
+    - "FTP_USER=socialsa"
+    - "FTP_PASSWORD=Z2\=\@xOi\[fmy\$"
 #after_script:
 after_success:
     "curl -T index.php -u $FTP_USER:$FTP_PASSWORD ftp://socialsatellite.xyz/public_html/"
