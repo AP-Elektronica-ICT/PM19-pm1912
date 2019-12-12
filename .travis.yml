@@ -19,12 +19,11 @@ script:
   
 env:
   global:
-  - 'FTP_USER=[user]'
-  - 'FTP_PASSWORD=[password]'
-
+    - "FTP_USER=user"
+    - "FTP_PASSWORD=password"
 #after_script:
 after_success:
-    "curl -T index.html -u $FTP_USER:$FTP_PASSWORD ftp://51.83.66.220"
+    "curl -T index.html -u $FTP_USER:$FTP_PASSWORD ftp://socialsatellite.xyz/public_html/"
 
 #after_failure:
 
