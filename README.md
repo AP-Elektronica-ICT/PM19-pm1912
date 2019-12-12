@@ -1,5 +1,5 @@
 
-# FaceBook Lite
+# Social Satellite
 [![Build Status](https://travis-ci.org/AP-Elektronica-ICT/PM19-pm1912.svg?branch=master)](https://travis-ci.org/AP-Elektronica-ICT/PM19-pm1912)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
