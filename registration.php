@@ -10,7 +10,7 @@ require_once('config.php');
 </head>
 <body>
 
-
+<div>This site is not GDPR compliant as of now. Do not put any personal information at this moment.</div>
 <div>
 	<form action="process.php" method="post">
 		<div class="container">

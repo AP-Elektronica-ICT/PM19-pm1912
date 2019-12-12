@@ -3,10 +3,10 @@ class registrationclass
 {
     public $first,$pass,$last,$user,$email,$number,$city,$address,$zip,$tel;
     
-    public $dbhosta = 'remotemysql.com';
-	public $dbusera = 'Q6EhZWemZR';
-	public $dbpassa = 'iEkb5TgEqO';
-	public $dbnamea = 'Q6EhZWemZR';
+    public $dbhosta = 'eu-sql.pebblehost.com';
+    public $dbusera = 'customer_93889';
+    public $dbpassa = '64a2b900dd';
+    public $dbnamea = 'customer_93889';
 
 
 	public $db;

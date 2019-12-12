@@ -27,7 +27,6 @@ after_success:
 # Monitor only these branches
 branches:
   only:
-  - ChangesNick
   - master
   - dev
 

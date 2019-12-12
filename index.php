@@ -28,13 +28,13 @@ if(!isset($_SESSION['userlogin']))
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css" type="text/css">
 
-    <title>FaceBook Lite</title>
+    <title>Social Satellite</title>
     </head>
     <body>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">
-                <img src="img/fb-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">FaceBook Lite
+                <img src="img/fb-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">Social Satellite
             </a>
             <!-- Navigation | Tabs -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -51,7 +51,7 @@ if(!isset($_SESSION['userlogin']))
                             $queryArray['page'] = "wall";
                             // build the new query string
                             $newQueryStr = http_build_query($queryArray);
-                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.$newQueryStr."'>Wall</a>";
+                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.'account_id='.$_SESSION['id'].'&page=wall'."'>Wall</a>";
                         ?>
                     </li>
                     <li class="nav-item">
@@ -59,7 +59,7 @@ if(!isset($_SESSION['userlogin']))
                             $queryArray['page'] = "profile";
                             // build the new query string
                             $newQueryStr = http_build_query($queryArray);
-                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.$newQueryStr."'>Profile</a>";
+                            echo "<a class='nav-link' href='".$pathInfo['host'].'?'.'account_id='.$_SESSION['id'].'&page=profile'."'>Profile</a>";
                         ?>
                     </li>
                     <li class="nav-item dropdown">
@@ -113,8 +113,6 @@ if(!isset($_SESSION['userlogin']))
                 {
                     echo "<div>ERROR 404: This page does not exist.</div>";
                 }
-                
-
                 
             ?>
             
