@@ -4,53 +4,30 @@ include 'database.php';
 include 'connect.php';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
-
 session_start();
-
-$sessionid;
+$id;
 if (isset ($_SESSION['id'])) {
-    $sessionid = $_SESSION['id'];
+    $id = $_SESSION['id'];
+}
+
+$account_id;
+if (isset($_GET["account_id"])) {
+    $account_id = $_GET["account_id"];
+}
+else 
+{
+    $account_id = $id;
 }
 ?>
-<?php
-if(isset($POST)) {
-	$updated = array();
-	$toupdate = array("firstname","lastname","username","email","number","city","address","zip","tel","password");
-	$firstname 		= $_POST['firstname'];
-	$lastname 		= $_POST['lastname'];
-    $username       = $_POST['username'];
-	$email 			= $_POST['email'];
-    $number         = $_POST['number'];
-    $city           = $_POST['city'];
-    $address        = $_POST['address'];
-    $zip            = $_POST['zip'];
-	$tel         	= $_POST['tel'];
-	$password 		= $_POST['password'];
-	array_push($firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
-	$var_count(count($toupdate));
-	$sql = "INSERT INTO accounts SET ";
-	$temp = false;
-	for ($i = 0; $i<$var_count; $i++)
-        {
-		if ($temp == true) 
-			{$sql .= ", ";}
-		if ($updated[$i]!="" && $updated[$i]!=null )
-            {
-			$sql .= "{$toupdate[$i]}={$updated[$i]} ";
-			}
-	    $sql .= "WHERE {$id}={$sessionid}";
-	    }
-	$db->query($sql);
-    }
-
-
-if (isset ($_SESSION['id'])) {
-$sessionid=$_SESSION['id'];
-$deletemessage="
 <div>
-	<form action='registration.php' method='post'>
+	<div>Update profile-picture<div>
+	<form action = "updateProfPic.php" method = 'post' enctype='multipart/form-data'>
+						<input type='file' name='file' />
+						<input type='submit' value='Save name' name='but_upload'>
+	</form>
+	<div>This site is not GDPR compliant as of now. Do not put any personal information at this moment.</div>
+	<form action='editProcess.php' method='post'>
 		<div class='container'>
-			
 			<div class='row'>
 				<div class='col-sm-3'>
 					<h1>Edit account</h1>
@@ -91,14 +68,4 @@ $deletemessage="
 			</div>
 		</div>
 	</form>
-</div>";
-}
-else {
-	$deletemessage="<div>You must create an account or log in in order to edit your account.</div>";
-}
-
-
-?>
-<div>
-	<?php echo $deletemessage; ?>
 </div>
