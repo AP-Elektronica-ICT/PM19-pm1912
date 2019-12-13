@@ -40,6 +40,9 @@ if(isset($_POST['but_upload'])) {
             foreach ($last_querys as $last_query) {
                 $last = $last_query;
             }
+			// Upload file
+		move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+
 		$db->query("insert into profielfoto(userID, imageID) values(".$id.", ".$last['ImageId'].")");
 		echo "<script>window.location = 'index.php?account_id=".$_SESSION['id']."&page=profile'</script>";
 

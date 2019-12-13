@@ -181,19 +181,21 @@ if(isset($_POST['but_upload']))
 		$profileImageIDs;
 		$imageNames;
 		$imageName;
+		$imageLocation;
 		$profilepicture;
 		$profileImageIDs = $db->query('SELECT * FROM profielfoto WHERE userID=' . $account_content['id'] . ' ORDER BY ImageID DESC LIMIT 1')->fetchall();
 		foreach ($profileImageIDs as $imageID) {
 			$profileImageID = $imageID['imageID'];
 		}
 		if ($profileImageID != null) {
-		$imageNames= $db->query('SELECT * FROM images WHERE ImageId=' . $profileImageID)->fetchall();          
-		foreach ($imageNames as $imagename) {
-			$imageName = $imagename['ImageFileName'];
-			}
+			$imageNames= $db->query('SELECT * FROM images WHERE ImageId=' . $profileImageID)->fetchall();          
+			foreach ($imageNames as $imagename) {
+				$imageName = $imagename['ImageFileName'];
+				}
+			$imageLocation = "upload/" . $imageName ;
 		}
 		else {
-		$imageName = "dummy/profile-image.png";
+		$imageLocation = "dummy/profile-image.png";
 		}
 		/*
 		$accounts = $db->query('SELECT * FROM accounts WHERE id=' . $account_id)->fetchAll();
@@ -203,7 +205,7 @@ if(isset($_POST['but_upload']))
         $profile = "
             <div class='profile-info'>
                 <div class='card' style='width: 18rem;'>
-                    <img src='img/" . $imageName . "' class='card-img-top' alt='...'>
+                    <img src='img/" . $imageLocation . "' class='card-img-top' alt='...'>
                     <div class='card-body'>
                         <h5 class='card-title'>" . $account_content['first_name'] . " " . $account_content['last_name'] . "
                             <h6>" . $account_content['user_name'] . "</h6>
