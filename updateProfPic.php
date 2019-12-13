@@ -35,12 +35,14 @@ if(isset($_POST['but_upload'])) {
         if( in_array($imageFileType,$extensions_arr) ){
         
             // Insert record
-        $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$sessionid.")");
+        $db->query("insert into images(ImageFileName, ImageOwner) values('".$name."', ".$id.")");
 		$last_querys = $db->query('SELECT * FROM images ORDER BY ImageID DESC LIMIT 1')->fetchAll();
             foreach ($last_querys as $last_query) {
                 $last = $last_query;
             }
-		$db->query("insert into profielfoto(userID, imageID) values(".$sessionid.', "'.$last['ImageId'].")");
+		$db->query("insert into profielfoto(userID, imageID) values(".$id.", ".$last['ImageId'].")");
+		echo "<script>window.location = 'index.php?account_id=".$_SESSION['id']."&page=profile'</script>";
 
+}
 }
 ?>
