@@ -20,6 +20,43 @@ else
 }
 ?>
 <?php
+if(isset($_POST['edit'])) {
+	$updated = array();
+	$toupdate = array("first_name","last_name","username","email","number","city","address","zip","tel","password");
+	$firstname 		= $_POST['firstname'];
+	$lastname 		= $_POST['lastname'];
+    $username       = $_POST['username'];
+	$email 			= $_POST['email'];
+    $number         = $_POST['number'];
+    $city           = $_POST['city'];
+    $address        = $_POST['address'];
+    $zip            = $_POST['zip'];
+	$tel         	= $_POST['tel'];
+	$password 		= sha1($_POST['password']);
+	array_push($updated, $firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
+	$sql = "UPDATE accounts SET ";
+	$temp = false;
+	for ($i = 0; $i<9; $i++)
+        {
+		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
+            {
+			if ($temp == true) 
+			{$sql .= ", ";}
+			$sql .= "$toupdate[$i]='$updated[$i]'";
+			$temp = true;
+			}
+	    }
+	$sql .= " WHERE id=$id";
+	if ($db->query($sql) == TRUE) {
+		echo "Record updated successfully";
+		header('Location: index.php?page=editAccount');
+	} else {
+		echo "Error updating record: " . mysqli_error($db);
+		header('Location: index.php?page=editAccount');
+	}
+	
+}
+
 if(isset($_POST['but_upload'])) {
 		$name = $_FILES['file']['name'];
 		$target_dir = "img/upload/";
