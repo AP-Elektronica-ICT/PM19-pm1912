@@ -93,7 +93,7 @@ if(isset($_POST['but_upload'])) {
 						<input type='submit' value='Save name' name='but_upload'>
 	</form>
 	<div>This site is not GDPR compliant as of now. Do not put any personal information at this moment.</div>
-	<form action='editProcess.php' method='post'>
+	<form method='post'>
 		<div class='container'>
 			<div class='row'>
 				<div class='col-sm-3'>
