@@ -22,7 +22,7 @@ else
 <?php
 if(isset($_POST['edit'])) {
 	$updated = array();
-	$toupdate = array("first_name","last_name","username","email","number","city","address","zip","tel","password");
+	$toupdate = array("first_name","last_name","username","email","number","city","address","zip","tel");
 	$firstname 		= $_POST['firstname'];
 	$lastname 		= $_POST['lastname'];
     $username       = $_POST['username'];
@@ -32,11 +32,10 @@ if(isset($_POST['edit'])) {
     $address        = $_POST['address'];
     $zip            = $_POST['zip'];
 	$tel         	= $_POST['tel'];
-	$password 		= sha1($_POST['password']);
-	array_push($updated, $firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
+	array_push($updated, $firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel);
 	$sql = "UPDATE accounts SET ";
 	$temp = false;
-	for ($i = 0; $i<9; $i++)
+	for ($i = 0; $i<8; $i++)
         {
 		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
             {
@@ -125,9 +124,6 @@ if(isset($_POST['but_upload'])) {
 
 					<label for='tel'><b>Phone Number</b></label>
 					<input class='form-control' id='tel'  type='text' name='tel'>
-
-					<label for='password'><b>Password</b></label>
-					<input class='form-control' id='password'  type='password' name='password'>
 					
 					<hr class='mb-3'>
 					<input class='btn btn-primary' type='submit' id='edit' name='edit' value='Post'>

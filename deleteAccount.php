@@ -13,8 +13,11 @@ $sessionid = $_SESSION['id'];
 
 	if(isset($_POST['delete_account']))
 	{
+		$db->query("DELETE FROM friends WHERE id_first =" .$sessionid);
+		$db->query("DELETE FROM friends WHERE id_second =" .$sessionid);
 		$db->query("DELETE FROM accounts WHERE id=" . $sessionid);
 		session_destroy();
+
 	}
 
 	$deletemessage="<div>
