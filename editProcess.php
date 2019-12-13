@@ -21,9 +21,9 @@ else
 }
 ?>
 <?php
-if(isset($POST['edit'])) {
+if(isset($_POST['edit'])) {
 	$updated = array();
-	$toupdate = array("firstname","lastname","username","email","number","city","address","zip","tel","password");
+	$toupdate = array("first_name","last_name","username","email","number","city","address","zip","tel","password");
 	$firstname 		= $_POST['firstname'];
 	$lastname 		= $_POST['lastname'];
     $username       = $_POST['username'];
@@ -35,25 +35,32 @@ if(isset($POST['edit'])) {
 	$tel         	= $_POST['tel'];
 	$password 		= sha1($_POST['password']);
 	array_push($updated, $firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel, $password);
-	$var_count(count($toupdate));
 	$sql = "UPDATE accounts SET ";
 	$temp = false;
-	for ($i = 0; $i<$var_count; $i++)
+	for ($i = 0; $i<9; $i++)
         {
-		if ($temp == true) 
-			{$sql .= ", ";}
 		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
             {
-			$sql .= "{$toupdate[$i]}={$updated[$i]} ";
+			if ($temp == true) 
+			{$sql .= ", ";}
+			$sql .= "$toupdate[$i]='$updated[$i]'";
 			$temp = true;
 			}
-	    $sql .= "WHERE {$id}={$sessionid}";
 	    }
-	$db->query($sql);
-    }
+	$sql .= " WHERE id=$id";
+	if ($db->query($sql) == TRUE) {
+		echo "Record updated successfully";
+		header('Location: index.php?page=editAccount');
+	} else {
+		echo "Error updating record: " . mysqli_error($db);
+		header('Location: index.php?page=editAccount');
+	}
+	
+}
+	//header('Location: index.php?page=editAccount');
 
+/* Nog even bijhouden in case bugfix niet werkt.
 
-	/* Nog even bijhouden in case bugfix niet werkt.
 	$firstname 		= $_POST['firstname'];
 	$lastname 		= $_POST['lastname'];
     $username       = $_POST['username'];
@@ -78,5 +85,5 @@ if(isset($POST['edit'])) {
    $query .= "WHERE 'id'={$sessionid}";
    mysql_query($query);
 	}
-*/
+	*/
 ?>
