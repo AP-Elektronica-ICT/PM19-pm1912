@@ -47,12 +47,10 @@ if(isset($_POST['edit'])) {
 	    }
 	if ($temp == TRUE) {
 		echo "Record updated successfully";
-		<script>alert("Updated successfully")</script>
 		header('Location: index.php?page=editAccount');
 	} else {
 		echo "Error updating record: " . mysqli_error($db);
 		header('Location: index.php?page=editAccount');
-		<script>alert("Oh no, something went wrong updating!")</script>
 	}
 	
 }
