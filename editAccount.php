@@ -103,6 +103,13 @@ if(isset($_POST['but_upload'])) {
 
 }
 }
+if(isset($_POST['changePassword'])) {
+	$password 		= sha1($_POST['password']);
+	$sql = "UPDATE accounts SET password=? WHERE id=$id";
+	$stmtinsert = $db->prepare($sql);
+	$result = $stmtinsert->execute($password);
+}
+
 ?>
 
 <div>
@@ -147,6 +154,19 @@ if(isset($_POST['but_upload'])) {
 					
 					<hr class='mb-3'>
 					<input class='btn btn-primary' type='submit' id='edit' name='edit' value='Post'>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form method='post'>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-sm-3'>
+					<h1>Change Password</h1>
+					<label for="password"><b>Password</b></label>
+					<input class="form-control" id="password"  type="password" name="password">
+					<hr class='mb-3'>
+					<input class='btn btn-primary' type='submit' id='changePassword' name='changePassword' value='Post'>
 				</div>
 			</div>
 		</div>
