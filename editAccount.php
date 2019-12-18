@@ -39,6 +39,27 @@ if(isset($_POST['edit'])) {
         {
 		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
             {
+			if ($temp == true) 
+			{$sql .= ", ";}
+			$sql .= "$toupdate[$i]='$updated[$i]'";
+			$temp = true;
+			}
+	    }
+	$sql .= " WHERE id=$id";
+	if ($db->query($sql) == TRUE) {
+		echo "Record updated successfully";
+		header('Location: index.php?page=editAccount');
+	} else {
+		echo "Error updating record: " . mysqli_error($db);
+		header('Location: index.php?page=editAccount');
+	}
+	
+}
+/*	$temp = false;
+	for ($i = 0; $i<8; $i++)
+        {
+		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
+            {
 			$sql .= "$toupdate[$i]=? where id=$id"
 			$stmtinsert = $db->prepare($sql);
 			$result = $stmtinsert->execute($updated[$i]);
@@ -53,7 +74,7 @@ if(isset($_POST['edit'])) {
 		header('Location: index.php?page=editAccount');
 	}	
 }
-
+*/
 if(isset($_POST['but_upload'])) {
 		$name = $_FILES['file']['name'];
 		$target_dir = "img/upload/";
