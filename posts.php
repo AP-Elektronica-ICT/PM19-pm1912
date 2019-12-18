@@ -1,23 +1,4 @@
 <?php
-$profileImageIDs;
-$imageNames;
-$imageName;
-$imageLocation;
-$profilepicture;
-$profileImageIDs = $db->query('SELECT * FROM profielfoto WHERE userID=' . $account_content['id'] . ' ORDER BY ImageID DESC LIMIT 1')->fetchall();
-foreach ($profileImageIDs as $imageID) {
-    $profileImageID = $imageID['imageID'];
-}
-if ($profileImageID != null) {
-    $imageNames= $db->query('SELECT * FROM images WHERE ImageId=' . $profileImageID)->fetchall();          
-    foreach ($imageNames as $imagename) {
-        $imageName = $imagename['ImageFileName'];
-        }
-    $imageLocation = "upload/" . $imageName ;
-}
-else {
-$imageLocation = "dummy/profile-image.png";
-}
 if(isset($_POST['like']))
 {
     $posts_likes_query = $db->query('SELECT * FROM likes WHERE post_id="' . $_POST['post-id'] . '" AND user_id="' . $id . '"');
@@ -133,7 +114,7 @@ foreach ($posts as $post) {
             <div class='card-header'>
                 <div class='row'>
                     <div class='col-sm-1'>
-                        <img class='profile-pic-mini' src='img/" . $imageLocation . ">
+                        <img class='profile-pic-mini' src='img/dummy/profile-image.png'>
                     </div>
                     <div class='col-sm'>
                             <a href='".$pathInfo['host'].'?'.$newQueryStr."'>"  . $poster['first_name'] . " " . $poster['last_name'] . "</a>"
@@ -200,7 +181,7 @@ foreach ($posts as $post) {
                             <div class='card-header'>
                                 <div class='row'>
                                     <div class='col-sm-1'>
-                                        <img class='profile-pic-mini-comment' src='img/" . $imageLocation . "'>
+                                        <img class='profile-pic-mini-comment' src='img/dummy/profile-image.png'>
                                     </div>
                                     <a href='".$pathInfo['host'].'?'.$newQueryStr."'>"  . $comment_sender['first_name'] . " " . $comment_sender['last_name'] . "</a>
                                 </div>
