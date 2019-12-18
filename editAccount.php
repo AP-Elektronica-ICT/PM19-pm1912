@@ -51,13 +51,8 @@ if(isset($_POST['edit'])) {
 	} else {
 		echo "Error updating record: " . mysqli_error($db);
 		header('Location: index.php?page=editAccount');
-	}
-	
+	}	
 }
-// UPDATE accounts SET TOUPDATE=UPDATED where id=$id;
-// $stminsertUPDATE accounts SET ?=? where id=$id;
-// $stmtinsert = $db->prepare($sql);
-//		$result = $stmtinsert->execute($toupdate[$i],$updated[$i])
 
 if(isset($_POST['but_upload'])) {
 		$name = $_FILES['file']['name'];
@@ -88,6 +83,7 @@ if(isset($_POST['but_upload'])) {
 }
 }
 ?>
+
 <div>
 	<div>Update profile-picture<div>
 	<form method = 'post' enctype='multipart/form-data'>
