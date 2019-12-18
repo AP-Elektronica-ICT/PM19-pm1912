@@ -20,6 +20,61 @@ else
 }
 ?>
 <?php
+if(isset($_POST['edit'])) {
+	$updated = array();
+	$toupdate = array("first_name","last_name","username","email","number","city","address","zip","tel");
+	$firstname 		= $_POST['firstname'];
+	$lastname 		= $_POST['lastname'];
+    $username       = $_POST['username'];
+	$email 			= $_POST['email'];
+    $number         = $_POST['number'];
+    $city           = $_POST['city'];
+    $address        = $_POST['address'];
+    $zip            = $_POST['zip'];
+	$tel         	= $_POST['tel'];
+	array_push($updated, $firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel);
+	$sql = "UPDATE accounts SET ";
+	$temp = false;
+	for ($i = 0; $i<9; $i++)
+        {
+		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
+            {
+			if ($temp == true) 
+			{$sql .= ", ";}
+			$sql .= "$toupdate[$i]='$updated[$i]'";
+			$temp = true;
+			}
+	    }
+	$sql .= " WHERE id=$id";
+	if ($db->query($sql) == TRUE) {
+		echo "Record updated successfully";
+		header('Location: index.php?page=editAccount');
+	} else {
+		echo "Error updating record: " . mysqli_error($db);
+		header('Location: index.php?page=editAccount');
+	}
+	
+}
+/*	$temp = false;
+	for ($i = 0; $i<8; $i++)
+        {
+		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
+            {
+			$sql .= "$toupdate[$i]=? where id=$id"
+			$stmtinsert = $db->prepare($sql);
+			$result = $stmtinsert->execute($updated[$i]);
+			$temp=true;
+			}
+	    }
+	if ($temp == TRUE) {
+		echo "Record updated successfully";
+		header('Location: index.php?page=editAccount');
+	} else {
+		echo "Error updating record: " . mysqli_error($db);
+		header('Location: index.php?page=editAccount');
+	}	
+}
+*/
 if(isset($_POST['but_upload'])) {
 		$name = $_FILES['file']['name'];
 		$target_dir = "img/upload/";
@@ -49,6 +104,7 @@ if(isset($_POST['but_upload'])) {
 }
 }
 ?>
+
 <div>
 	<div>Update profile-picture<div>
 	<form method = 'post' enctype='multipart/form-data'>
@@ -56,7 +112,7 @@ if(isset($_POST['but_upload'])) {
 						<input type='submit' value='Save name' name='but_upload'>
 	</form>
 	<div>This site is not GDPR compliant as of now. Do not put any personal information at this moment.</div>
-	<form action='editProcess.php' method='post'>
+	<form method='post'>
 		<div class='container'>
 			<div class='row'>
 				<div class='col-sm-3'>
@@ -88,9 +144,6 @@ if(isset($_POST['but_upload'])) {
 
 					<label for='tel'><b>Phone Number</b></label>
 					<input class='form-control' id='tel'  type='text' name='tel'>
-
-					<label for='password'><b>Password</b></label>
-					<input class='form-control' id='password'  type='password' name='password'>
 					
 					<hr class='mb-3'>
 					<input class='btn btn-primary' type='submit' id='edit' name='edit' value='Post'>
