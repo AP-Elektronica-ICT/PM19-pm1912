@@ -1,4 +1,23 @@
 <?php
+$profileImageIDs;
+$imageNames;
+$imageName;
+$imageLocation;
+$profilepicture;
+$profileImageIDs = $db->query('SELECT * FROM profielfoto WHERE userID=' . $account_content['id'] . ' ORDER BY ImageID DESC LIMIT 1')->fetchall();
+foreach ($profileImageIDs as $imageID) {
+    $profileImageID = $imageID['imageID'];
+}
+if ($profileImageID != null) {
+    $imageNames= $db->query('SELECT * FROM images WHERE ImageId=' . $profileImageID)->fetchall();          
+    foreach ($imageNames as $imagename) {
+        $imageName = $imagename['ImageFileName'];
+        }
+    $imageLocation = "upload/" . $imageName ;
+}
+else {
+$imageLocation = "dummy/profile-image.png";
+}
 if(isset($_POST['like']))
 {
     $posts_likes_query = $db->query('SELECT * FROM likes WHERE post_id="' . $_POST['post-id'] . '" AND user_id="' . $id . '"');
