@@ -39,14 +39,13 @@ if(isset($_POST['edit'])) {
         {
 		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
             {
-			if ($temp == true) 
-			{$sql .= ", ";}
-			$sql .= "$toupdate[$i]='$updated[$i]'";
-			$temp = true;
+			$sql .= "$toupdate[$i]=? where id=$id"
+			$stmtinsert = $db->prepare($sql);
+			$result = $stmtinsert->execute($updated[$i]);
+			$temp=true;
 			}
 	    }
-	$sql .= " WHERE id=$id";
-	if ($db->query($sql) == TRUE) {
+	if ($temp == TRUE) {
 		echo "Record updated successfully";
 		header('Location: index.php?page=editAccount');
 	} else {
@@ -55,6 +54,10 @@ if(isset($_POST['edit'])) {
 	}
 	
 }
+// UPDATE accounts SET TOUPDATE=UPDATED where id=$id;
+// $stminsertUPDATE accounts SET ?=? where id=$id;
+// $stmtinsert = $db->prepare($sql);
+//		$result = $stmtinsert->execute($toupdate[$i],$updated[$i])
 
 if(isset($_POST['but_upload'])) {
 		$name = $_FILES['file']['name'];
