@@ -190,7 +190,7 @@ foreach ($posts as $post) {
                             // build the new query string
                             $newQueryStr = http_build_query($queryArray);
 							//fetch profile picture
-							$profileImageIDs = $db->query('SELECT * FROM profielfoto WHERE userID=' . $post_content['user_id'] . ' ORDER BY ImageID DESC LIMIT 1')->fetchall();
+							$profileImageIDs = $db->query('SELECT * FROM profielfoto WHERE userID=' . $comment_content['user_id'] . ' ORDER BY ImageID DESC LIMIT 1')->fetchall();
 							foreach ($profileImageIDs as $imageID) {
 								$profileImageID = $imageID['imageID'];
 								}
