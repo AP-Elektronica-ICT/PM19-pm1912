@@ -34,8 +34,8 @@ if(isset($_POST['edit'])) {
 	$tel         	= $_POST['tel'];
 	array_push($updated, $firstname, $lastname, $username, $email, $number, $city, $address, $zip, $tel);
 	$sql = "UPDATE accounts SET ";
-	$temp = false;
-	for ($i = 0; $i<8; $i++)
+/*	$temp = false;
+	for ($i = 0; $i<9; $i++)
         {
 		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
             {
@@ -54,15 +54,15 @@ if(isset($_POST['edit'])) {
 		header('Location: index.php?page=editAccount');
 	}
 	
-}
-/*	$temp = false;
+}*/
+	$temp = false;
 	for ($i = 0; $i<8; $i++)
         {
 		if ($updated[$i]!="" && $updated[$i]!=null && $updated[$i]!=" ")
             {
 			$sql .= "$toupdate[$i]=? where id=$id"
 			$stmtinsert = $db->prepare($sql);
-			$result = $stmtinsert->execute($updated[$i]);
+			$result = $stmtinsert->execute('$updated[$i]');
 			$temp=true;
 			}
 	    }
@@ -74,7 +74,7 @@ if(isset($_POST['edit'])) {
 		header('Location: index.php?page=editAccount');
 	}	
 }
-*/
+
 if(isset($_POST['but_upload'])) {
 		$name = $_FILES['file']['name'];
 		$target_dir = "img/upload/";
