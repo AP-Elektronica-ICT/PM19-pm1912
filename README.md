@@ -15,7 +15,7 @@ http://socialsatellite.xyz/
 ### Setup
 
 <ol type="1">
-	<li>First of all, Download all the files.</li>
+	<li>First of all, download all the files.</li>
   <li>Extract or move all the files to you htdocs folder.</li>
 	<li>Open your <b>phpMyAdmin</b> and give it the name it a name.</li>
 	<li>Import <b>database.sql</b> to your new database that you created, you can find <b>database.sql</b> in the folder that you extracted.</li>
