@@ -116,7 +116,7 @@ if(isset($_POST['changePassword'])) {
 	<div>Update profile-picture<div>
 	<form method = 'post' enctype='multipart/form-data'>
 						<input type='file' name='file' />
-						<input type='submit' value='Save name' name='but_upload'>
+						<input type='submit' value='Save Profile Picture' name='but_upload'>
 	</form>
 	<div>This site is not GDPR compliant as of now. Do not put any personal information at this moment.</div>
 	<form method='post'>
